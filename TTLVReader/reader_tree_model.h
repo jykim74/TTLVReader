@@ -1,11 +1,14 @@
 #ifndef READERTREEMODEL_H
 #define READERTREEMODEL_H
 
+#include <QStandardItemModel>
 
-class ReaderTreeModel
+class ReaderTreeModel : public QStandardItemModel
 {
+    Q_OBJECT
+
 public:
-    ReaderTreeModel();
+    ReaderTreeModel( QObject *parent = 0 );
 };
 
 #endif // READERTREEMODEL_H

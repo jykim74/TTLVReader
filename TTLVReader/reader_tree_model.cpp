@@ -1,6 +1,7 @@
 #include "reader_tree_model.h"
 
-ReaderTreeModel::ReaderTreeModel()
+ReaderTreeModel::ReaderTreeModel( QObject *parent )
+    : QStandardItemModel( parent )
 {
 
 }
