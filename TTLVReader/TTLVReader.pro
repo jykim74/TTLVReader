@@ -17,10 +17,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    reader_tree_item.cpp \
+    reader_tree_model.cpp \
+    reader_tree_view.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    reader_tree_item.h \
+    reader_tree_model.h \
+    reader_tree_view.h
 
 FORMS += \
     mainwindow.ui
@@ -29,3 +35,22 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+
+INCLUDEPATH += "../../PKILib"
+
+mac {
+    INCLUDEPATH += "../../PKILib/lib/mac/debug/cmpossl/include"
+    INCLUDEPATH += "/usr/local/include"
+    LIBS += -L"/usr/local/lib" -lltdl
+    LIBS += -L"../../build-PKILib-Desktop_Qt_5_11_3_clang_64bit-Debug" -lPKILib
+    LIBS += -L"../../PKILib/lib/mac/debug/cmpossl/lib" -lcrypto -lssl
+    LIBS += -lldap -llber
+}
+
+win32 {
+    INCLUDEPATH += "../../PKILib/lib/win32/cmpossl-mingw32/include"
+    LIBS += -L"../../PKILib/lib/win32/ltdl/lib" -lltdl
+    LIBS += -L"../../build-PKILib-Desktop_Qt_5_12_2_MinGW_32_bit-Debug/debug" -lPKILib
+    LIBS += -L"../../PKILib/lib/win32/cmpossl-mingw32/lib" -lcrypto -lssl
+}
