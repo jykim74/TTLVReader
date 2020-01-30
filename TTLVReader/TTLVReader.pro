@@ -18,12 +18,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
+    reader_applet.cpp \
     reader_tree_item.cpp \
     reader_tree_model.cpp \
     reader_tree_view.cpp
 
 HEADERS += \
     mainwindow.h \
+    reader_applet.h \
     reader_tree_item.h \
     reader_tree_model.h \
     reader_tree_view.h

@@ -4,6 +4,8 @@
 #include <QCommandLineParser>
 #include <QCommandLineOption>
 
+#include "reader_applet.h"
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
@@ -18,6 +20,10 @@ int main(int argc, char *argv[])
     parser.addPositionalArgument( "file", "a file to open" );
     parser.process(app);
 
+
+    ReaderApplet mApplet;
+    readerApplet = &mApplet;
+    readerApplet->start();
 
     return app.exec();
 }
