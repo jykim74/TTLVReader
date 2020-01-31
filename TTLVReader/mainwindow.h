@@ -23,7 +23,14 @@ public:
 
     void initialize();
 
+private slots:
+    void newFile();
+    void open();
+
 private:
+    void createActions();
+    void createStatusBar();
+
     QSplitter   *hsplitter_;
     QSplitter   *vsplitter_;
 
