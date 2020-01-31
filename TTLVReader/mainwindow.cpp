@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     createActions();
     createStatusBar();
+
+    ttlv_ = NULL;
 }
 
 MainWindow::~MainWindow()
@@ -87,5 +89,17 @@ void MainWindow::newFile()
 
 void MainWindow::open()
 {
+    if( ttlv_ == NULL )
+        ttlv_ = (BIN *)JS_calloc(1, sizeof(BIN));
+    else
+        JS_BIN_reset( ttlv_ );
 
+    QString fileName = QFileDialog::getOpenFileName( this, "TTLV file",
+                                    QDir::currentPath(),
+                                    "All Files (*.*);;BIN files(*.bin);;Hex Files(*.hex)");
+
+    if( !fileName.isEmpty() )
+    {
+        JS_BIN_fileRead( fileName.toStdString().c_str(), ttlv_ );
+    }
 }

@@ -6,6 +6,8 @@
 #include <QTableWidget>
 #include <QTextEdit>
 
+#include "js_bin.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -23,6 +25,8 @@ public:
 
     void initialize();
 
+    BIN* getTTLV() { return ttlv_; };
+
 private slots:
     void newFile();
     void open();
@@ -38,5 +42,7 @@ private:
     ReaderTreeModel *left_model_;
     QTableWidget    *right_table_;
     QTextEdit       *right_text_;
+
+    BIN             *ttlv_;
 };
 #endif // MAINWINDOW_H
