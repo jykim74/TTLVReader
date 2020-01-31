@@ -12,23 +12,25 @@ ReaderTreeItem::ReaderTreeItem()
 
 void ReaderTreeItem::setTag( const BIN *pTag )
 {
-    if( pTag )
-        JS_BIN_copy( tag_, pTag );
-    else
-        JS_BIN_reset( tag_ );
+    JS_BIN_reset( tag_ );
+
+    if( pTag ) JS_BIN_copy( tag_, pTag );
 }
 
 void ReaderTreeItem::setType( const BIN *pType )
 {
-
+    JS_BIN_reset( type_ );
+    if( pType ) JS_BIN_copy( type_, pType );
 }
 
 void ReaderTreeItem::setLength( const BIN *pLength )
 {
-
+    JS_BIN_reset( length_ );
+    if( pLength ) JS_BIN_copy( length_, pLength );
 }
 
 void ReaderTreeItem::setValue( const BIN *pValue )
 {
-
+    JS_BIN_reset( value_ );
+    if( pValue ) JS_BIN_copy( value_, pValue );
 }
