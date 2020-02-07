@@ -88,5 +88,19 @@ int ReaderTreeModel::getItem( int offset, ReaderTreeItem *pItem )
     BIN     *pTTLV = readerApplet->mainWindow()->getTTLV();
     if( pTTLV == NULL ) return -1;
 
-    return 0;
+    pItem->dataReset();
+
+    BIN *pTag = pItem->getTag();
+    BIN *pType = pItem->getType();
+    BIN *pLength = pItem->getLength();
+    BIN *pValue = pItem->getValue();
+
+    JS_BIN_set( pTag, pTTLV->pVal + offset, 3 );
+    JS_BIN_set( pType, pTTLV->pVal + offset + 3, 1 );
+    JS_BIN_set( pLength, pTTLV->pVal + offset + 4, 4 );
+    JS_BIN_set( pValue, pTTLV->pVal + offset + 8, pItem->getLengthInt() );
+
+    next_offset = offset + 8 + pItem->getLengthInt();
+
+    return next_offset;
 }

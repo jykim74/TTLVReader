@@ -11,6 +11,10 @@ class ReaderTreeView : public QTreeView
 
 public:
     ReaderTreeView( QWidget* parent = 0 );
+
+    void showRight();
+    void showRightFull( ReaderTreeItem *pItem );
+    void showRighrPart( ReaderTreeItem *pItem );
 };
 
 #endif // READERTREEVIEW_H

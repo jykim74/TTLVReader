@@ -4,6 +4,7 @@
 #include "reader_tree_item.h"
 #include "reader_tree_model.h"
 #include "reader_tree_view.h"
+#include "insert_data_dlg.h"
 
 #include <QtWidgets>
 #include <QFileDialog>
@@ -75,6 +76,11 @@ void MainWindow::createActions()
     connect( openAct, &QAction::triggered, this, &MainWindow::open);
     fileMenu->addAction(openAct);
     fileToolBar->addAction(openAct);
+
+    QMenu *toolMenu = menuBar()->addMenu(tr("&Tool"));
+
+    QAction *insertDataAct = toolMenu->addAction(tr("&Insert data"), this, &MainWindow::insertData);
+    insertDataAct->setStatusTip(tr("Insert data"));
 }
 
 void MainWindow::createStatusBar()
@@ -101,5 +107,31 @@ void MainWindow::open()
     if( !fileName.isEmpty() )
     {
         JS_BIN_fileRead( fileName.toStdString().c_str(), ttlv_ );
+    }
+}
+
+void MainWindow::insertData()
+{
+    InsertDataDlg insertDataDlg;
+    int ret = insertDataDlg.exec();
+
+    if( ttlv_ == NULL )
+        ttlv_ = (BIN *)JS_calloc(1, sizeof(BIN));
+    else
+        JS_BIN_reset( ttlv_ );
+
+    if( ret == QDialog::Accepted )
+    {
+        QString strInput = insertDataDlg.mDataValueText->toPlainText();
+        strInput.remove(QRegExp("[\t\r\n\\s]"));
+
+        if( insertDataDlg.getType() == 0 )
+            JS_BIN_decodeHex( strInput.toStdString().c_str(), ttlv_ );
+        else
+            JS_BIN_decodeBase64( strInput.toStdString().c_str(), ttlv_ );
+
+        left_model_->parseTree();
+        left_tree_->header()->setVisible(false);
+        left_tree_->showRight();
     }
 }

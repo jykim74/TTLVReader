@@ -26,10 +26,12 @@ public:
     void initialize();
 
     BIN* getTTLV() { return ttlv_; };
+    QTableWidget* rightTable() { return right_table_; };
 
 private slots:
     void newFile();
     void open();
+    void insertData();
 
 private:
     void createActions();

@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    insert_data_dlg.cpp \
     main.cpp \
     mainwindow.cpp \
     reader_applet.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
     reader_tree_view.cpp
 
 HEADERS += \
+    insert_data_dlg.h \
     mainwindow.h \
     reader_applet.h \
     reader_tree_item.h \
@@ -31,6 +33,7 @@ HEADERS += \
     reader_tree_view.h
 
 FORMS += \
+    insert_data_dlg.ui \
     mainwindow.ui
 
 # Default rules for deployment.
