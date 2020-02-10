@@ -36,6 +36,7 @@ private slots:
 private:
     void createActions();
     void createStatusBar();
+    void createTableMenu();
 
     QSplitter   *hsplitter_;
     QSplitter   *vsplitter_;

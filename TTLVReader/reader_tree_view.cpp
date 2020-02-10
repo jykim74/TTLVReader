@@ -27,6 +27,16 @@ void ReaderTreeView::showRight()
     setExpanded( rootIndex(), true );
 }
 
+
+static char getch( unsigned char c )
+{
+    if( isprint(c) )
+        return c;
+    else {
+        return '.';
+    }
+}
+
 void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
 {
     int line = 0;
@@ -51,8 +61,48 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
 
     for( int i = 0; i < pTTLV->nLen; i++ )
     {
+        int pos = 0;
+        if( i % 16 == 0 )
+        {
+            rightTable->insertRow(line);
+            QString address;
+            address.sprintf( "0x%08X", i );
+            rightTable->setItem( line, 0, new QTableWidgetItem(address));
+        }
 
+        hex.sprintf( "%02X", pTTLV->pVal[i] );
+        pos = (i%16) + 1;
+        rightTable->setItem( line, pos, new QTableWidgetItem(hex));
+
+        if( i >= pItem->getOffset() && i < pItem->getOffset() + 3 )
+        {
+            rightTable->item( line, pos )->setBackgroundColor(green);
+        }
+        else if( i == pItem->getOffset() + 3 )
+        {
+            rightTable->item( line, pos )->setBackgroundColor(yellow);
+        }
+        else if( i >= pItem->getOffset() + 4 && i < pItem->getOffset() + 8 )
+        {
+            rightTable->item( line, pos )->setBackgroundColor(cyan);
+        }
+        else if( i >= pItem->getOffset() + 8 && i < pItem->getOffset() + 8 + pItem->getLengthInt() )
+        {
+            rightTable->item( line, pos )->setBackgroundColor(lightGray);
+        }
+
+
+        text += getch( pTTLV->pVal[i] );
+
+        if( i % 16 - 15 == 0 )
+        {
+            rightTable->setItem( line, 17, new QTableWidgetItem(text));
+            text.clear();
+            line++;
+        }
     }
+
+    if( !text.isEmpty() ) rightTable->setItem( line, 17, new QTableWidgetItem(text));
 }
 
 void ReaderTreeView::showRighrPart( ReaderTreeItem *pItem )

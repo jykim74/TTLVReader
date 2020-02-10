@@ -1,4 +1,4 @@
-#include "js_bin.h"
+﻿#include "js_bin.h"
 #include "kmip.h"
 #include "reader_tree_item.h"
 
@@ -99,16 +99,12 @@ QString ReaderTreeItem::getValueHex()
 
 int32 ReaderTreeItem::getLengthInt()
 {
-    int32   *len = NULL;
 
-    *len = 0;
+    int32   len = 0;
 
-    *len |= ((int32)*length_->pVal << 24);
-    *len |= ((int32)*length_->pVal + 1 << 16);
-    *len |= ((int32)*length_->pVal + 2 << 8);
-    *len |= ((int32)*length_->pVal + 3 << 0);
+    len = JS_BIN_getInt32FromBE( length_ );
 
-    return *len;
+    return len;
 }
 
 void ReaderTreeItem::dataReset()

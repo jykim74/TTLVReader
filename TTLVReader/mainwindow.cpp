@@ -39,6 +39,8 @@ void MainWindow::initialize()
     right_text_ = new QTextEdit();
     right_table_ = new QTableWidget;
 
+    left_tree_->setModel(left_model_);
+
     hsplitter_->addWidget(left_tree_);
     hsplitter_->addWidget(vsplitter_);
     vsplitter_->addWidget(right_table_);
@@ -54,6 +56,8 @@ void MainWindow::initialize()
 
     hsplitter_->setSizes( sizes );
     setCentralWidget(hsplitter_);
+
+    createTableMenu();
 }
 
 void MainWindow::createActions()
@@ -86,6 +90,22 @@ void MainWindow::createActions()
 void MainWindow::createStatusBar()
 {
     statusBar()->showMessage(tr("Ready"));
+}
+
+void MainWindow::createTableMenu()
+{
+    QStringList     labels = { tr("Field"), "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+                               "A", "B", "C", "D", "E", "F", tr("Text") };
+
+    right_table_->horizontalHeader()->setStretchLastSection(true);
+    right_table_->setColumnCount(18);
+
+
+    for( int i=1; i <= 16; i++ )
+        right_table_->setColumnWidth(i, 30);
+
+    right_table_->setHorizontalHeaderLabels( labels );
+    right_table_->verticalHeader()->setVisible(false);
 }
 
 void MainWindow::newFile()
