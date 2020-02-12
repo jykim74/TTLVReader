@@ -5,6 +5,7 @@
 #include <QCommandLineOption>
 
 #include "reader_applet.h"
+#include "i18n_helper.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,6 +21,7 @@ int main(int argc, char *argv[])
     parser.addPositionalArgument( "file", "a file to open" );
     parser.process(app);
 
+    I18NHelper::getInstance()->init();
 
     ReaderApplet mApplet;
     readerApplet = &mApplet;

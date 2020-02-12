@@ -16,25 +16,38 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    about_dlg.cpp \
+    auto_update_service.cpp \
+    i18n_helper.cpp \
     insert_data_dlg.cpp \
     main.cpp \
     mainwindow.cpp \
     reader_applet.cpp \
     reader_tree_item.cpp \
     reader_tree_model.cpp \
-    reader_tree_view.cpp
+    reader_tree_view.cpp \
+    settings_dlg.cpp \
+    settings_mgr.cpp
 
 HEADERS += \
+    about_dlg.h \
+    auto_update_service.h \
+    i18n_helper.h \
     insert_data_dlg.h \
     mainwindow.h \
     reader_applet.h \
     reader_tree_item.h \
     reader_tree_model.h \
-    reader_tree_view.h
+    reader_tree_view.h \
+    settings_dlg.h \
+    settings_mgr.h \
+    singleton.h
 
 FORMS += \
+    about_dlg.ui \
     insert_data_dlg.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    settings_dlg.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -44,7 +57,19 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 INCLUDEPATH += "../../PKILib"
 
+DEFINES += _AUTO_UPDATE
+
 mac {
+    QMAKE_LFLAGS += -Wl,-rpath,@loader_path/../Frameworks
+    HEADERS += mac_sparkle_support.h
+    OBJECTIVE_SOURCES += mac_sparkle_support.mm
+    LIBS += -framework AppKit
+    LIBS += -framework Carbon
+    LIBS += -framework Foundation
+    LIBS += -framework ApplicationServices
+    LIBS += -framework Sparkle
+    INCLUDEPATH += "/usr/local/Sparkle.framework/Headers"
+
     INCLUDEPATH += "../../PKILib/lib/mac/debug/cmpossl/include"
     INCLUDEPATH += "/usr/local/include"
     LIBS += -L"/usr/local/lib" -lltdl

@@ -24,6 +24,7 @@ public:
     ~MainWindow();
 
     void initialize();
+    void showWindow();
 
     BIN* getTTLV() { return ttlv_; };
     QTableWidget* rightTable() { return right_table_; };
@@ -33,6 +34,8 @@ private slots:
     void newFile();
     void open();
     void insertData();
+    void setting();
+    void about();
 
 private:
     void createActions();

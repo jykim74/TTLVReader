@@ -5,6 +5,8 @@
 #include "reader_tree_model.h"
 #include "reader_tree_view.h"
 #include "insert_data_dlg.h"
+#include "about_dlg.h"
+#include "settings_dlg.h"
 
 #include <QtWidgets>
 #include <QFileDialog>
@@ -62,6 +64,14 @@ void MainWindow::initialize()
     createTableMenu();
 }
 
+void MainWindow::showWindow()
+{
+    showNormal();
+    show();
+    raise();
+    activateWindow();
+}
+
 void MainWindow::createActions()
 {
     QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
@@ -87,6 +97,14 @@ void MainWindow::createActions()
 
     QAction *insertDataAct = toolMenu->addAction(tr("&Insert data"), this, &MainWindow::insertData);
     insertDataAct->setStatusTip(tr("Insert data"));
+
+    QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
+
+    QAction *settingAct = helpMenu->addAction( tr("&Settings"), this, &MainWindow::setting );
+    settingAct->setStatusTip(tr("Set the variable"));
+
+    QAction *aboutAct = helpMenu->addAction( tr("&About TTLVReader"), this, &MainWindow::about );
+    aboutAct->setStatusTip(tr("Show the TTVLReader" ));
 }
 
 void MainWindow::createStatusBar()
@@ -157,4 +175,16 @@ void MainWindow::insertData()
         left_model_->parseTree();
         left_tree_->showRight();
     }
+}
+
+void MainWindow::setting()
+{
+    SettingsDlg settingsDlg;
+    settingsDlg.exec();
+}
+
+void MainWindow::about()
+{
+    AboutDlg aboutDlg;
+    aboutDlg.exec();
 }
