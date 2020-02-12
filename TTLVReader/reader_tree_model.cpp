@@ -35,7 +35,7 @@ int ReaderTreeModel::parseTree()
 
     if( pType && pType->pVal[0] == 0x01 ) // In case of structure
     {
-        ret = parseConstruct( offset + 8, pRootItem );
+        ret = parseConstruct( 8, pRootItem );
     }
 
     return 0;
@@ -84,6 +84,7 @@ int ReaderTreeModel::getItem( int offset, ReaderTreeItem *pItem )
     int     next_offset = 0;
     int     position = 0;
     int     length = 0;
+    int     pad = 0;
 
     BIN     *pTTLV = readerApplet->mainWindow()->getTTLV();
     if( pTTLV == NULL ) return -1;
@@ -100,7 +101,11 @@ int ReaderTreeModel::getItem( int offset, ReaderTreeItem *pItem )
     JS_BIN_set( pLength, pTTLV->pVal + offset + 4, 4 );
     JS_BIN_set( pValue, pTTLV->pVal + offset + 8, pItem->getLengthInt() );
 
-    next_offset = offset + 8 + pItem->getLengthInt();
+    length = pItem->getLengthInt();
 
+    pad = 8 - (length % 8);
+    if( pad == 8 ) pad = 0;
+
+    next_offset = offset + 8 + length + pad;
     return next_offset;
 }

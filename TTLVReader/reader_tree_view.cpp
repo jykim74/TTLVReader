@@ -13,7 +13,8 @@
 ReaderTreeView::ReaderTreeView( QWidget *parent )
     : QTreeView(parent)
 {
-
+    connect( this, SIGNAL(clicked(const QModelIndex&)), this, SLOT(onItemClicked(const QModelIndex&)));
+    setContextMenuPolicy(Qt::CustomContextMenu);
 }
 
 void ReaderTreeView::showRight()
@@ -27,6 +28,18 @@ void ReaderTreeView::showRight()
     setExpanded( rootIndex(), true );
 }
 
+void ReaderTreeView::onItemClicked( const QModelIndex& index )
+{
+    ReaderTreeModel *left_model = (ReaderTreeModel *)model();
+    ReaderTreeItem *item = (ReaderTreeItem *)left_model->itemFromIndex(index);
+
+    showRightFull( item );
+}
+
+void ReaderTreeView::ShowContextMenu( QPoint point )
+{
+
+}
 
 static char getch( unsigned char c )
 {

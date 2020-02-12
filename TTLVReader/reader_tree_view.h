@@ -15,6 +15,10 @@ public:
     void showRight();
     void showRightFull( ReaderTreeItem *pItem );
     void showRighrPart( ReaderTreeItem *pItem );
+
+private slots:
+    void onItemClicked( const QModelIndex& index );
+    void ShowContextMenu( QPoint point );
 };
 
 #endif // READERTREEVIEW_H
