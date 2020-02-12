@@ -1,5 +1,6 @@
 ﻿#include "js_bin.h"
 #include "kmip.h"
+#include "js_kms.h"
 #include "reader_tree_item.h"
 
 ReaderTreeItem::ReaderTreeItem()
@@ -105,6 +106,43 @@ int32 ReaderTreeItem::getLengthInt()
     len = JS_BIN_getInt32FromBE( length_ );
 
     return len;
+}
+
+QString ReaderTreeItem::getTagName()
+{
+    int nTag = -1;
+    QString strName;
+    if( tag_ == NULL ) return "";
+
+    nTag = JS_BIN_getInt32FromBE( tag_ );
+
+    strName = JS_KMS_tagName( nTag );
+
+    return strName;
+}
+
+QString ReaderTreeItem::getTypeName()
+{
+    int nType = -1;
+    QString strName;
+
+    if( type_ == NULL ) return "";
+
+    nType = JS_BIN_getInt32FromBE( type_ );
+
+    strName = JS_KMS_typeName( nType );
+
+    return strName;
+}
+
+QString ReaderTreeItem::getTitle()
+{
+    QString strTag = getTagName();
+    QString strType = getTypeName();
+
+    QString strTitle = QString( "%1(%2)").arg( strTag ).arg(strType);
+
+    return strTitle;
 }
 
 void ReaderTreeItem::dataReset()

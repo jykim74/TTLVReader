@@ -27,6 +27,7 @@ public:
 
     BIN* getTTLV() { return ttlv_; };
     QTableWidget* rightTable() { return right_table_; };
+    QTextEdit* rightText() { return right_text_; };
 
 private slots:
     void newFile();

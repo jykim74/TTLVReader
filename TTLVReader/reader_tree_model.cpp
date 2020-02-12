@@ -29,7 +29,8 @@ int ReaderTreeModel::parseTree()
     offset = getItem( offset, pRootItem );
     insertRow( 0, pRootItem );
 
-    pRootItem->setText( pRootItem->getTagHex() );
+//    pRootItem->setText( pRootItem->getTagHex() );
+    pRootItem->setText( pRootItem->getTitle());
 
     BIN *pType = pRootItem->getType();
 
@@ -60,7 +61,8 @@ int ReaderTreeModel::parseConstruct( int offset, ReaderTreeItem *pParentItem )
 
         next_offset = getItem( offset, pItem );
 
-        pItem->setText( pItem->getTagHex() );
+//        pItem->setText( pItem->getTagHex() );
+        pItem->setText( pItem->getTitle() );
         pParentItem->appendRow( pItem );
 
         if( pItem->getTypeHex() == "01" )

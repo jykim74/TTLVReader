@@ -31,6 +31,9 @@ public:
     QString getLengthHex();
     QString getValueHex();
     int32 getLengthInt();
+    QString getTagName();
+    QString getTypeName();
+    QString getTitle();
 
     void dataReset();
 

@@ -14,7 +14,8 @@ public:
 
     void showRight();
     void showRightFull( ReaderTreeItem *pItem );
-    void showRighrPart( ReaderTreeItem *pItem );
+    void showRightPart( ReaderTreeItem *pItem );
+    QString getInfoView( ReaderTreeItem *pItem );
 
 private slots:
     void onItemClicked( const QModelIndex& index );

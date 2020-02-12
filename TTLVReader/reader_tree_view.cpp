@@ -23,7 +23,7 @@ void ReaderTreeView::showRight()
     ReaderTreeItem  *rootItem = (ReaderTreeItem *)left_model->item(0);
 
     showRightFull( rootItem );
-//    showRighrPart( rootItem );
+//    showRightPart( rootItem );
 
     setExpanded( rootIndex(), true );
 }
@@ -32,6 +32,8 @@ void ReaderTreeView::onItemClicked( const QModelIndex& index )
 {
     ReaderTreeModel *left_model = (ReaderTreeModel *)model();
     ReaderTreeItem *item = (ReaderTreeItem *)left_model->itemFromIndex(index);
+
+
 
     showRightFull( item );
 }
@@ -59,7 +61,9 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
     QColor green(Qt::green);
     QColor yellow(Qt::yellow);
     QColor cyan(Qt::cyan);
+    QColor magenta(Qt::magenta);
     QColor lightGray(Qt::lightGray);
+
 
     int len_len = 0;
     int start_col = 0;
@@ -75,6 +79,9 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
     for( int i = 0; i < pTTLV->nLen; i++ )
     {
         int pos = 0;
+        int len = 0;
+        int pad = 0;
+
         if( i % 16 == 0 )
         {
             rightTable->insertRow(line);
@@ -86,6 +93,10 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
         hex.sprintf( "%02X", pTTLV->pVal[i] );
         pos = (i%16) + 1;
         rightTable->setItem( line, pos, new QTableWidgetItem(hex));
+
+        len = pItem->getLengthInt();
+        pad = 8 - (len % 8);
+        if( pad == 8 ) pad = 0;
 
         if( i >= pItem->getOffset() && i < pItem->getOffset() + 3 )
         {
@@ -99,7 +110,11 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
         {
             rightTable->item( line, pos )->setBackgroundColor(cyan);
         }
-        else if( i >= pItem->getOffset() + 8 && i < pItem->getOffset() + 8 + pItem->getLengthInt() )
+        else if( i >= pItem->getOffset() + 8 && i < pItem->getOffset() + 8 + len )
+        {
+            rightTable->item( line, pos )->setBackgroundColor(magenta);
+        }
+        else if( i >= (pItem->getOffset() + 8 + len) && i < (pItem->getOffset() + 8 + len + pad ))
         {
             rightTable->item( line, pos )->setBackgroundColor(lightGray);
         }
@@ -116,9 +131,34 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
     }
 
     if( !text.isEmpty() ) rightTable->setItem( line, 17, new QTableWidgetItem(text));
+
+    QTextEdit *rightText = readerApplet->mainWindow()->rightText();
+    QString strInfo = getInfoView( pItem );
+
+    rightText->setText( strInfo );
 }
 
-void ReaderTreeView::showRighrPart( ReaderTreeItem *pItem )
+void ReaderTreeView::showRightPart( ReaderTreeItem *pItem )
 {
 
+}
+
+QString ReaderTreeView::getInfoView(ReaderTreeItem *pItem)
+{
+    QString strView;
+    QString strPart;
+
+    strPart = QString( "Tag: %1(%2)\n" ).arg( pItem->getTagName() ).arg( pItem->getTagHex() );
+    strView += strPart;
+
+    strPart = QString( "Type: %1(%2)\n").arg( pItem->getTypeName() ).arg( pItem->getTypeHex() );
+    strView += strPart;
+
+    strPart = QString( "Length: %1(%2)\n" ).arg( pItem->getLengthInt() ).arg( pItem->getLengthHex() );
+    strView += strPart;
+
+    strPart = QString( "\nValue\n %1").arg( pItem->getValueHex() );
+    strView += strPart;
+
+    return strView;
 }
