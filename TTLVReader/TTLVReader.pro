@@ -89,3 +89,5 @@ DISTFILES +=
 
 RESOURCES += \
     ttlvreader.qrc
+
+TRANSLATIONS += i18n/ttlvreader_ko_KR.ts
