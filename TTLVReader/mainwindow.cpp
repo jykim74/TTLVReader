@@ -57,6 +57,8 @@ void MainWindow::initialize()
     hsplitter_->setSizes( sizes );
     setCentralWidget(hsplitter_);
 
+    left_tree_->header()->setVisible(false);
+
     createTableMenu();
 }
 
@@ -128,6 +130,8 @@ void MainWindow::open()
     {
         JS_BIN_fileRead( fileName.toStdString().c_str(), ttlv_ );
     }
+
+    left_model_->parseTree();
 }
 
 void MainWindow::insertData()
@@ -151,7 +155,6 @@ void MainWindow::insertData()
             JS_BIN_decodeBase64( strInput.toStdString().c_str(), ttlv_ );
 
         left_model_->parseTree();
-        left_tree_->header()->setVisible(false);
         left_tree_->showRight();
     }
 }

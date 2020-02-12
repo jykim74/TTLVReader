@@ -157,7 +157,7 @@ QString ReaderTreeView::getInfoView(ReaderTreeItem *pItem)
     strPart = QString( "Length: %1(%2)\n" ).arg( pItem->getLengthInt() ).arg( pItem->getLengthHex() );
     strView += strPart;
 
-    strPart = QString( "\nValue\n %1").arg( pItem->getValueHex() );
+    strPart = QString( "\nValue\n %1").arg( pItem->getPrintValue() );
     strView += strPart;
 
     return strView;

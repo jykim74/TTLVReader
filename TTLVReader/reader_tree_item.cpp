@@ -137,12 +137,56 @@ QString ReaderTreeItem::getTypeName()
 
 QString ReaderTreeItem::getTitle()
 {
+    QString strTitle;
     QString strTag = getTagName();
     QString strType = getTypeName();
+    int nType = JS_BIN_getInt32FromBE( type_ );
 
-    QString strTitle = QString( "%1(%2)").arg( strTag ).arg(strType);
+    if( nType == KMIP_TYPE_INTEGER ||
+            nType == KMIP_TYPE_TEXT_STRING ||
+            nType == KMIP_TYPE_ENUMERATION )
+    {
+        QString strPrint = getPrintValue();
+        strTitle = QString( "%1(%2 %3)").arg( strTag ).arg(strType).arg(strPrint);
+    }
+    else
+    {
+        strTitle = QString( "%1(%2)").arg( strTag ).arg(strType);
+    }
 
     return strTitle;
+}
+
+QString ReaderTreeItem::getPrintValue()
+{
+    int nType = JS_BIN_getInt32FromBE( type_ );
+    QString strPrint;
+
+    if( nType == KMIP_TYPE_INTEGER )
+    {
+        int num = JS_BIN_getInt32FromBE( value_ );
+        strPrint = QString( "%1" ).arg( num );
+    }
+    else if( nType == KMIP_TYPE_TEXT_STRING )
+    {
+        char *pTmp = (char *)JS_malloc( value_->nLen + 1 );
+        memcpy( pTmp, value_->pVal, value_->nLen );
+        pTmp[value_->nLen] = 0x00;
+        strPrint = pTmp;
+
+        JS_free( pTmp );
+    }
+    else if( nType == KMIP_TYPE_ENUMERATION )
+    {
+        int num = JS_BIN_getInt32FromBE( value_ );
+        strPrint = QString( "%1" ).arg(num);
+    }
+    else
+    {
+        strPrint = getValueHex();
+    }
+
+    return strPrint;
 }
 
 void ReaderTreeItem::dataReset()

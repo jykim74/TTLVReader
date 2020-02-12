@@ -34,6 +34,7 @@ public:
     QString getTagName();
     QString getTypeName();
     QString getTitle();
+    QString getPrintValue();
 
     void dataReset();
 
