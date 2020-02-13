@@ -34,7 +34,7 @@
        <item>
         <widget class="QCheckBox" name="mShowFullTextCheck">
          <property name="text">
-          <string>Show fulltext in reader</string>
+          <string>Show full text in reader</string>
          </property>
         </widget>
        </item>
