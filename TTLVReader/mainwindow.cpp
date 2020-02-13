@@ -94,9 +94,15 @@ void MainWindow::createActions()
     fileToolBar->addAction(openAct);
 
     QMenu *toolMenu = menuBar()->addMenu(tr("&Tool"));
+    QToolBar *toolToolBar = addToolBar( tr("Tool") );
 
-    QAction *insertDataAct = toolMenu->addAction(tr("&Insert data"), this, &MainWindow::insertData);
+    const QIcon insertIcon = QIcon::fromTheme("document-insert", QIcon(":/images/insert.jpg"));
+//    QAction *insertDataAct = toolMenu->addAction(tr("&Insert data"), this, &MainWindow::insertData);
+    QAction *insertDataAct = new QAction( insertIcon, tr("&Insert data"), this );
     insertDataAct->setStatusTip(tr("Insert data"));
+    connect( insertDataAct, &QAction::triggered, this, &MainWindow::insertData );
+    toolMenu->addAction( insertDataAct );
+    toolToolBar->addAction( insertDataAct );
 
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
 
