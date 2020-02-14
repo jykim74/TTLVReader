@@ -1,3 +1,5 @@
+#include <QFileDialog>
+
 #include "send_msg_dlg.h"
 #include "mainwindow.h"
 #include "reader_applet.h"
@@ -41,19 +43,44 @@ void SendMsgDlg::setDefaults()
     mClientPriKeyPathText->setText( strClientPriKey );
 }
 
+QString SendMsgDlg::getFilePath()
+{
+    QString strFilter = "All Files (*)";
+//    QString strPath = QDir::currentPath();
+//    QString strPath = QDir::homePath();
+
+    QFileDialog::Options options;
+    options |= QFileDialog::DontUseNativeDialog;
+
+    QString selectedFilter;
+    QString filePath = QFileDialog::getOpenFileName( this,
+                                                     tr("PKI Test file"),
+                                                     QDir::homePath(),
+                                                     strFilter,
+                                                     &selectedFilter,
+                                                     options );
+
+    QFileInfo fileInfo( filePath );
+
+    return filePath;
+}
+
 void SendMsgDlg::findCA()
 {
-
+    QString filePath = getFilePath();
+    mCACertPathText->setText( filePath );
 }
 
 void SendMsgDlg::findCert()
 {
-
+    QString filePath = getFilePath();
+    mClientCertPathText->setText( filePath );
 }
 
 void SendMsgDlg::findPriKey()
 {
-
+    QString filePath = getFilePath();
+    mClientPriKeyPathText->setText( filePath );
 }
 
 void SendMsgDlg::send()
