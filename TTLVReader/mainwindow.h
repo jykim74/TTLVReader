@@ -36,6 +36,8 @@ private slots:
     void insertData();
     void setting();
     void about();
+    void sendMsg();
+    void edit();
 
 private:
     void createActions();

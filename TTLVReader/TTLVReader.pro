@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     about_dlg.cpp \
     auto_update_service.cpp \
+    edit_dlg.cpp \
     i18n_helper.cpp \
     insert_data_dlg.cpp \
     main.cpp \
@@ -26,12 +27,14 @@ SOURCES += \
     reader_tree_item.cpp \
     reader_tree_model.cpp \
     reader_tree_view.cpp \
+    send_msg_dlg.cpp \
     settings_dlg.cpp \
     settings_mgr.cpp
 
 HEADERS += \
     about_dlg.h \
     auto_update_service.h \
+    edit_dlg.h \
     i18n_helper.h \
     insert_data_dlg.h \
     mainwindow.h \
@@ -39,14 +42,17 @@ HEADERS += \
     reader_tree_item.h \
     reader_tree_model.h \
     reader_tree_view.h \
+    send_msg_dlg.h \
     settings_dlg.h \
     settings_mgr.h \
     singleton.h
 
 FORMS += \
     about_dlg.ui \
+    edit_dlg.ui \
     insert_data_dlg.ui \
     mainwindow.ui \
+    send_msg_dlg.ui \
     settings_dlg.ui
 
 # Default rules for deployment.

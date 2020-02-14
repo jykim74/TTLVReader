@@ -7,6 +7,8 @@
 #include "insert_data_dlg.h"
 #include "about_dlg.h"
 #include "settings_dlg.h"
+#include "send_msg_dlg.h"
+#include "edit_dlg.h"
 
 #include <QtWidgets>
 #include <QFileDialog>
@@ -104,6 +106,12 @@ void MainWindow::createActions()
     toolMenu->addAction( insertDataAct );
     toolToolBar->addAction( insertDataAct );
 
+    QAction *sendMsgAct = toolMenu->addAction( tr("SendMsg"), this, &MainWindow::sendMsg );
+    sendMsgAct->setStatusTip(tr("Send Message to KMIP Server"));
+
+    QAction *editAct = toolMenu->addAction( tr("&Edit"), this, &MainWindow::edit );
+    editAct->setStatusTip(tr("Edit TTLV"));
+
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
 
     QAction *settingAct = helpMenu->addAction( tr("&Settings"), this, &MainWindow::setting );
@@ -193,4 +201,16 @@ void MainWindow::about()
 {
     AboutDlg aboutDlg;
     aboutDlg.exec();
+}
+
+void MainWindow::sendMsg()
+{
+    SendMsgDlg sendMsgDlg;
+    sendMsgDlg.exec();
+}
+
+void MainWindow::edit()
+{
+    EditDlg editDlg;
+    editDlg.exec();
 }
