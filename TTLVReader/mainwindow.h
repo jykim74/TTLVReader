@@ -14,6 +14,7 @@ QT_END_NAMESPACE
 
 class ReaderTreeView;
 class ReaderTreeModel;
+class ReaderTreeItem;
 
 class MainWindow : public QMainWindow
 {
@@ -29,6 +30,9 @@ public:
     BIN* getTTLV() { return ttlv_; };
     QTableWidget* rightTable() { return right_table_; };
     QTextEdit* rightText() { return right_text_; };
+
+    void parseTree();
+    ReaderTreeItem* currentItem();
 
 private slots:
     void newFile();

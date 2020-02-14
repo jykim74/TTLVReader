@@ -214,3 +214,18 @@ void MainWindow::edit()
     EditDlg editDlg;
     editDlg.exec();
 }
+
+void MainWindow::parseTree()
+{
+    left_model_->parseTree();
+}
+
+ReaderTreeItem* MainWindow::currentItem()
+{
+    ReaderTreeItem *item = NULL;
+    QModelIndex index = left_tree_->currentIndex();
+
+    item = (ReaderTreeItem *)left_model_->itemFromIndex( index );
+
+    return item;
+}

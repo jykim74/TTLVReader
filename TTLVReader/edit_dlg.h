@@ -16,8 +16,11 @@ public:
     explicit EditDlg(QWidget *parent = nullptr);
     ~EditDlg();
 
-private:
+private slots:
+    virtual void accept();
 
+private:
+    void initialize();
 };
 
 #endif // EDIT_DLG_H
