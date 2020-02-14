@@ -1,3 +1,5 @@
+#include <QMenu>
+
 #include "reader_tree_view.h"
 #include "reader_tree_item.h"
 #include "reader_tree_model.h"
@@ -16,6 +18,8 @@ ReaderTreeView::ReaderTreeView( QWidget *parent )
 {
     connect( this, SIGNAL(clicked(const QModelIndex&)), this, SLOT(onItemClicked(const QModelIndex&)));
     setContextMenuPolicy(Qt::CustomContextMenu);
+
+    connect( this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(leftContextMenu(QPoint)));
 }
 
 void ReaderTreeView::showRight()
@@ -46,9 +50,13 @@ void ReaderTreeView::onItemClicked( const QModelIndex& index )
         showRightPart( item );
 }
 
-void ReaderTreeView::ShowContextMenu( QPoint point )
+void ReaderTreeView::leftContextMenu( QPoint point )
 {
+    QMenu menu(this);
 
+    menu.addAction( tr("Edit"), readerApplet->mainWindow(), &MainWindow::edit );
+
+    menu.exec(QCursor::pos());
 }
 
 static char getch( unsigned char c )

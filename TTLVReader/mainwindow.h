@@ -41,6 +41,8 @@ private slots:
     void setting();
     void about();
     void sendMsg();
+
+public slots:
     void edit();
 
 private:

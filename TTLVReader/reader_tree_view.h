@@ -19,7 +19,7 @@ public:
 
 private slots:
     void onItemClicked( const QModelIndex& index );
-    void ShowContextMenu( QPoint point );
+    void leftContextMenu( QPoint point );
 };
 
 #endif // READERTREEVIEW_H
