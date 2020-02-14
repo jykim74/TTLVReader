@@ -209,11 +209,52 @@ void MainWindow::sendMsg()
     sendMsgDlg.exec();
 }
 
-void MainWindow::edit()
+void MainWindow::editItem()
 {
     EditDlg editDlg;
     editDlg.exec();
 }
+
+void MainWindow::saveItem()
+{
+    QFileDialog fileDlg(this, tr("Save as..."));
+    fileDlg.setAcceptMode(QFileDialog::AcceptSave);
+    fileDlg.setDefaultSuffix("ber");
+    if( fileDlg.exec() != QDialog::Accepted )
+        return;
+
+    QString fileName = fileDlg.selectedFiles().first();
+
+    ReaderTreeItem *pItem = currentItem();
+    if( pItem == NULL ) return;
+
+    BIN binData = {0,0};
+
+    JS_BIN_appendBin( &binData, pItem->getTag() );
+    JS_BIN_appendBin( &binData, pItem->getType() );
+    JS_BIN_appendBin( &binData, pItem->getLength() );
+    JS_BIN_appendBin( &binData, pItem->getValue() );
+
+    JS_BIN_fileWrite( &binData, fileName.toStdString().c_str() );
+    JS_BIN_reset( &binData );
+}
+
+void MainWindow::saveItemValue()
+{
+    QFileDialog fileDlg(this, tr("Save as..."));
+    fileDlg.setAcceptMode(QFileDialog::AcceptSave);
+    fileDlg.setDefaultSuffix("ber");
+    if( fileDlg.exec() != QDialog::Accepted )
+        return;
+
+    QString fileName = fileDlg.selectedFiles().first();
+
+    ReaderTreeItem *pItem = currentItem();
+    if( pItem == NULL ) return;
+
+    JS_BIN_fileWrite( pItem->getValue(), fileName.toStdString().c_str() );
+}
+
 
 void MainWindow::parseTree()
 {

@@ -54,7 +54,9 @@ void ReaderTreeView::leftContextMenu( QPoint point )
 {
     QMenu menu(this);
 
-    menu.addAction( tr("Edit"), readerApplet->mainWindow(), &MainWindow::edit );
+    menu.addAction( tr("Edit"), readerApplet->mainWindow(), &MainWindow::editItem );
+    menu.addAction( tr("SaveItem"), readerApplet->mainWindow(), &MainWindow::saveItem );
+    menu.addAction( tr("SaveItemValue"), readerApplet->mainWindow(), &MainWindow::saveItemValue );
 
     menu.exec(QCursor::pos());
 }

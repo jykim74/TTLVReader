@@ -43,7 +43,9 @@ private slots:
     void sendMsg();
 
 public slots:
-    void edit();
+    void editItem();
+    void saveItem();
+    void saveItemValue();
 
 private:
     void createActions();
