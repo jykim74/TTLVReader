@@ -15,5 +15,6 @@
         <file>images/trash.png</file>
         <file>i18n/ttlvreader_ko_KR.ts</file>
         <file>images/insert.jpg</file>
+        <file>images/send.png</file>
     </qresource>
 </RCC>

@@ -86,6 +86,7 @@ void EditDlg::accept()
     if( ret == 0 )
     {
         readerApplet->mainWindow()->parseTree();
+        readerApplet->mainWindow()->showRight();
         QDialog::accept();
     }
 }

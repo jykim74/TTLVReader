@@ -99,7 +99,7 @@ void SendMsgDlg::send()
     if( pTTLV == NULL ) return;
 
     QString strHost = mHostText->text();
-    QString strPort = mHostText->text();
+    QString strPort = mPortText->text();
     QString strCACertPath = mCACertPathText->text();
     QString strCertPath = mClientCertPathText->text();
     QString strPriKeyPath = mClientPriKeyPathText->text();
@@ -134,7 +134,17 @@ void SendMsgDlg::send()
 
 void SendMsgDlg::viewResponse()
 {
+    BIN *pTTLV = readerApplet->mainWindow()->getTTLV();
+
+    if( pTTLV )
+    {
+        JS_BIN_reset( pTTLV );
+        JS_BIN_decodeHex( mResponseText->toPlainText().toStdString().c_str(), pTTLV );
+    }
+
     readerApplet->mainWindow()->parseTree();
+    readerApplet->mainWindow()->showRight();
+    QDialog::accept();
 }
 
 void SendMsgDlg::close()

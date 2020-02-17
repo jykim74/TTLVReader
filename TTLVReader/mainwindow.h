@@ -32,6 +32,7 @@ public:
     QTextEdit* rightText() { return right_text_; };
 
     void parseTree();
+    void showRight();
     ReaderTreeItem* currentItem();
 
 private slots:

@@ -99,17 +99,20 @@ void MainWindow::createActions()
     QToolBar *toolToolBar = addToolBar( tr("Tool") );
 
     const QIcon insertIcon = QIcon::fromTheme("document-insert", QIcon(":/images/insert.jpg"));
-//    QAction *insertDataAct = toolMenu->addAction(tr("&Insert data"), this, &MainWindow::insertData);
     QAction *insertDataAct = new QAction( insertIcon, tr("&Insert data"), this );
     insertDataAct->setStatusTip(tr("Insert data"));
     connect( insertDataAct, &QAction::triggered, this, &MainWindow::insertData );
     toolMenu->addAction( insertDataAct );
     toolToolBar->addAction( insertDataAct );
 
-    QAction *sendMsgAct = toolMenu->addAction( tr("SendMsg"), this, &MainWindow::sendMsg );
+    const QIcon sendIcon = QIcon::fromTheme("document-send", QIcon(":/images/send.png"));
+    QAction *sendMsgAct = new QAction( sendIcon, tr("Send Msg"), this );
     sendMsgAct->setStatusTip(tr("Send Message to KMIP Server"));
+    connect( sendMsgAct, &QAction::triggered, this, &MainWindow::sendMsg );
+    toolMenu->addAction( sendMsgAct );
+    toolToolBar->addAction( sendMsgAct );
 
-    QAction *editAct = toolMenu->addAction( tr("&Edit"), this, &MainWindow::edit );
+    QAction *editAct = toolMenu->addAction( tr("&Edit"), this, &MainWindow::editItem );
     editAct->setStatusTip(tr("Edit TTLV"));
 
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
@@ -259,6 +262,11 @@ void MainWindow::saveItemValue()
 void MainWindow::parseTree()
 {
     left_model_->parseTree();
+}
+
+void MainWindow::showRight()
+{
+    left_tree_->showRight();
 }
 
 ReaderTreeItem* MainWindow::currentItem()
