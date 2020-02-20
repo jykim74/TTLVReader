@@ -9,6 +9,8 @@ ReaderTreeItem::ReaderTreeItem()
     type_ = (BIN *)JS_calloc(1, sizeof(BIN));
     length_ = (BIN *)JS_calloc(1, sizeof(BIN));
     value_ = (BIN *)JS_calloc(1, sizeof(BIN));
+
+    setEditable(false);
 }
 
 void ReaderTreeItem::setTag( const BIN *pTag )

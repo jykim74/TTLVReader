@@ -60,7 +60,7 @@ void EditDlg::accept()
             || pDstLength->nLen != srcLength.nLen
             || pDstValue->nLen != srcValue.nLen )
     {
-        readerApplet->warningBox( "All length of value have to be the same." );
+        readerApplet->warningBox( "All length of value have to be the same with orginal length value." );
         ret = -1;
     }
 
