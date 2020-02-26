@@ -26,12 +26,31 @@ MainWindow::MainWindow(QWidget *parent)
     createActions();
     createStatusBar();
 
+    setAcceptDrops(true);
+
     ttlv_ = NULL;
 }
 
 MainWindow::~MainWindow()
 {
 
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (event->mimeData()->hasUrls()) {
+        event->acceptProposedAction();
+    }
+}
+
+void MainWindow::dropEvent(QDropEvent *event)
+{
+    foreach (const QUrl &url, event->mimeData()->urls()) {
+        QString fileName = url.toLocalFile();
+        qDebug() << "Dropped file:" << fileName;
+        openTTLV( fileName );
+        return;
+    }
 }
 
 void MainWindow::initialize()
@@ -150,23 +169,29 @@ void MainWindow::newFile()
 
 }
 
-void MainWindow::open()
+int MainWindow::openTTLV(const QString pPath)
 {
     if( ttlv_ == NULL )
         ttlv_ = (BIN *)JS_calloc(1, sizeof(BIN));
     else
         JS_BIN_reset( ttlv_ );
 
+    if( !pPath.isEmpty() )
+    {
+        JS_BIN_fileRead( pPath.toStdString().c_str(), ttlv_ );
+    }
+
+    left_model_->parseTree();
+}
+
+void MainWindow::open()
+{
     QString fileName = QFileDialog::getOpenFileName( this, "TTLV file",
                                     QDir::currentPath(),
                                     "All Files (*.*);;BIN files(*.bin);;Hex Files(*.hex)");
 
-    if( !fileName.isEmpty() )
-    {
-        JS_BIN_fileRead( fileName.toStdString().c_str(), ttlv_ );
-    }
 
-    left_model_->parseTree();
+    openTTLV( fileName );
 }
 
 void MainWindow::insertData()

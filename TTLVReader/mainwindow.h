@@ -43,6 +43,9 @@ private slots:
     void about();
     void sendMsg();
 
+    virtual void dragEnterEvent( QDragEnterEvent * event );
+    virtual void dropEvent( QDropEvent *event );
+
 public slots:
     void editItem();
     void saveItem();
@@ -52,6 +55,8 @@ private:
     void createActions();
     void createStatusBar();
     void createTableMenu();
+
+    int openTTLV( const QString pPath );
 
     QSplitter   *hsplitter_;
     QSplitter   *vsplitter_;
