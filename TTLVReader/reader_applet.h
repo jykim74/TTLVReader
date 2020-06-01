@@ -45,4 +45,7 @@ private:
 
 extern ReaderApplet *readerApplet;
 
+#define STR(s)          #s
+#define STRINGIZE(x)    STR(x)
+
 #endif // READERAPPLET_H

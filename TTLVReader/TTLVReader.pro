@@ -3,12 +3,14 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
+PROJECT_VERSION = "0.9.0"
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
+DEFINES += TTLV_READER_VERSION=$$PROJECT_VERSION
 
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -85,10 +87,23 @@ mac {
 }
 
 win32 {
-    INCLUDEPATH += "../../PKILib/lib/win32/cmpossl-mingw32/include"
+    DEFINES += _AUTO_UPDATE
+    RC_ICONS = images/ttlvreader.ico
+    INCLUDEPATH += "../../PKILib/lib/win32/winsparkle/include"
+    INCLUDEPATH += "C:\msys64\mingw32\include"
+
+    LIBS += -L"../../PKILib/lib/win32/winsparkle/Release" -lWinSparkle -lws2_32
+
+    Debug {
+        LIBS += -L"../../build-PKILib-Desktop_Qt_5_13_2_MinGW_32_bit-Debug/debug" -lPKILib -lws2_32
+        LIBS += -L"../../PKILib/lib/win32/debug/cmpossl/lib" -lcrypto -lssl
+    } else {
+        LIBS += -L"../../build-PKILib-Desktop_Qt_5_13_2_MinGW_32_bit-Release/release" -lPKILib -lws2_32
+        LIBS += -L"../../PKILib/lib/win32/cmpossl/lib" -lcrypto -lssl
+    }
+
     LIBS += -L"../../PKILib/lib/win32/ltdl/lib" -lltdl
-    LIBS += -L"../../build-PKILib-Desktop_Qt_5_12_2_MinGW_32_bit-Debug/debug" -lPKILib
-    LIBS += -L"../../PKILib/lib/win32/cmpossl-mingw32/lib" -lcrypto -lssl
+ #   LIBS += -L"C:\msys64\mingw32\i686-w64-mingw32\lib" -lws2_32
 }
 
 DISTFILES +=

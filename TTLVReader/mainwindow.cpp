@@ -182,6 +182,8 @@ int MainWindow::openTTLV(const QString pPath)
     }
 
     left_model_->parseTree();
+
+    return 0;
 }
 
 void MainWindow::open()
