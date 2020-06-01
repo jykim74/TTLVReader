@@ -15,6 +15,10 @@ int main(int argc, char *argv[])
     QCoreApplication::setOrganizationDomain( "jssoft.com" );
     QCoreApplication::setApplicationName( "TTLVReader" );
 
+    QFile qss(":/ttlvreader.qss");
+    qss.open( QFile::ReadOnly );
+    app.setStyleSheet(qss.readAll());
+
     QCommandLineParser parser;
     parser.setApplicationDescription( QCoreApplication::applicationName() );
     parser.addHelpOption();
