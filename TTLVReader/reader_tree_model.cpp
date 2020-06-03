@@ -76,6 +76,9 @@ int ReaderTreeModel::parseConstruct( int offset, ReaderTreeItem *pParentItem )
         }
 
         offset = next_offset;
+
+        if( offset >= (pParentItem->getOffset() + 8 + pParentItem->getLengthInt()) )
+            break;
     } while ( next_offset > 0 && next_offset < pTTLV->nLen );
 
     return 0;

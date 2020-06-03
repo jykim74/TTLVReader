@@ -17,6 +17,12 @@ ReaderApplet::ReaderApplet( QObject *parent )
 {
     main_win_ = new MainWindow;
     settings_mgr_ = new SettingsMgr;
+    cmd_ = "";
+}
+
+void ReaderApplet::setCmd(QString cmd)
+{
+    cmd_ = cmd;
 }
 
 void ReaderApplet::start()

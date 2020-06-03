@@ -5,6 +5,7 @@
 #include "reader_tree_model.h"
 #include "reader_tree_view.h"
 #include "insert_data_dlg.h"
+#include "reader_applet.h"
 #include "about_dlg.h"
 #include "settings_dlg.h"
 #include "send_msg_dlg.h"
@@ -169,7 +170,10 @@ void MainWindow::createTableMenu()
 
 void MainWindow::newFile()
 {
-
+    QString cmd = readerApplet->cmd();
+    QProcess *process = new QProcess();
+    process->setProgram( readerApplet->cmd() );
+    process->start();
 }
 
 int MainWindow::openTTLV(const QString pPath)

@@ -106,6 +106,7 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
             QString address;
             address.sprintf( "0x%08X", i );
             rightTable->setItem( line, 0, new QTableWidgetItem(address));
+            rightTable->item( line, 0 )->setBackgroundColor( QColor(220,220,250) );
         }
 
         hex.sprintf( "%02X", pTTLV->pVal[i] );
@@ -143,6 +144,7 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
         if( i % 16 - 15 == 0 )
         {
             rightTable->setItem( line, 17, new QTableWidgetItem(text));
+            rightTable->item( line, 17 )->setBackgroundColor(QColor(210,240,210));
             text.clear();
             line++;
         }
@@ -195,6 +197,7 @@ void ReaderTreeView::showRightPart( ReaderTreeItem *pItem )
             QString address;
             address.sprintf( "0x%08X", i );
             rightTable->setItem( line, 0, new QTableWidgetItem(address));
+            rightTable->item( line, 0 )->setBackgroundColor( QColor(220,220,250) );
         }
 
         hex.sprintf( "%02X", binPart.pVal[i] );
@@ -228,6 +231,7 @@ void ReaderTreeView::showRightPart( ReaderTreeItem *pItem )
         if( i % 16 - 15 == 0 )
         {
             rightTable->setItem( line, 17, new QTableWidgetItem(text));
+            rightTable->item( line, 17 )->setBackgroundColor(QColor(210,240,210));
             text.clear();
             line++;
         }
@@ -254,6 +258,9 @@ QString ReaderTreeView::getInfoView(ReaderTreeItem *pItem)
     strView += strPart;
 
     strPart = QString( "Length: %1(%2)\n" ).arg( pItem->getLengthInt() ).arg( pItem->getLengthHex() );
+    strView += strPart;
+
+    strPart = QString( "Offset: %1(%2)\n").arg( pItem->getOffset() ).arg( pItem->getOffset(), 0, 16);
     strView += strPart;
 
     strPart = QString( "\nValue\n %1").arg( pItem->getPrintValue() );

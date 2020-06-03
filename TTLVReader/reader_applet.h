@@ -29,6 +29,8 @@ public:
 
     QString getBrand();
     bool closingDown() { return in_exit_ || about_to_quit_; };
+    QString cmd() { return cmd_; };
+    void setCmd( QString cmd );
 
     void restartApp();
 
@@ -41,6 +43,7 @@ private:
     bool started_;
     bool in_exit_;
     bool about_to_quit_;
+    QString cmd_;
 };
 
 extern ReaderApplet *readerApplet;

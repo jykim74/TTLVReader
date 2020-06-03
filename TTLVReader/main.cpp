@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
 
     ReaderApplet mApplet;
     readerApplet = &mApplet;
+    readerApplet->setCmd( argv[0] );
     readerApplet->start();
 
     return app.exec();
