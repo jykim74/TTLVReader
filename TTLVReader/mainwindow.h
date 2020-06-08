@@ -27,7 +27,7 @@ public:
     void initialize();
     void showWindow();
 
-    BIN* getTTLV() { return ttlv_; };
+    BIN& getTTLV() { return ttlv_; };
     QTableWidget* rightTable() { return right_table_; };
     QTextEdit* rightText() { return right_text_; };
 
@@ -42,6 +42,7 @@ private slots:
     void setting();
     void about();
     void sendMsg();
+    void reqEncoder();
 
     virtual void dragEnterEvent( QDragEnterEvent * event );
     virtual void dropEvent( QDropEvent *event );
@@ -66,6 +67,6 @@ private:
     QTableWidget    *right_table_;
     QTextEdit       *right_text_;
 
-    BIN             *ttlv_;
+    BIN             ttlv_;
 };
 #endif // MAINWINDOW_H

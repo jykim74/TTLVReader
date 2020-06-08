@@ -10,6 +10,7 @@
 #include "settings_dlg.h"
 #include "send_msg_dlg.h"
 #include "edit_dlg.h"
+#include "req_encoder_dlg.h"
 
 #include <QtWidgets>
 #include <QFileDialog>
@@ -29,7 +30,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     setAcceptDrops(true);
 
-    ttlv_ = NULL;
+    ttlv_.nLen = 0;
+    ttlv_.pVal = 0x00;
 }
 
 MainWindow::~MainWindow()
@@ -75,7 +77,8 @@ void MainWindow::initialize()
     vsplitter_->setSizes( vsizes );
 
     QList <int> sizes;
-    sizes << 500 << 1200;
+
+    sizes << 400 << 1200;
     resize( 1024, 768 );
 
     hsplitter_->setSizes( sizes );
@@ -124,6 +127,13 @@ void MainWindow::createActions()
     connect( insertDataAct, &QAction::triggered, this, &MainWindow::insertData );
     toolMenu->addAction( insertDataAct );
     toolToolBar->addAction( insertDataAct );
+
+    const QIcon encoderIcon = QIcon::fromTheme("document-encoder", QIcon(":/images/encoder.png"));
+    QAction *reqEncoderAct = new QAction( encoderIcon, tr("ReqEncoder"), this);
+    reqEncoderAct->setStatusTip(tr("Request message encoder"));
+    connect( reqEncoderAct, &QAction::triggered, this, &MainWindow::reqEncoder);
+    toolMenu->addAction( reqEncoderAct );
+    toolToolBar->addAction( reqEncoderAct );
 
     const QIcon sendIcon = QIcon::fromTheme("document-send", QIcon(":/images/send.png"));
     QAction *sendMsgAct = new QAction( sendIcon, tr("Send Msg"), this );
@@ -178,14 +188,11 @@ void MainWindow::newFile()
 
 int MainWindow::openTTLV(const QString pPath)
 {
-    if( ttlv_ == NULL )
-        ttlv_ = (BIN *)JS_calloc(1, sizeof(BIN));
-    else
-        JS_BIN_reset( ttlv_ );
+    JS_BIN_reset( &ttlv_ );
 
     if( !pPath.isEmpty() )
     {
-        JS_BIN_fileRead( pPath.toStdString().c_str(), ttlv_ );
+        JS_BIN_fileRead( pPath.toStdString().c_str(), &ttlv_ );
     }
 
     left_model_->parseTree();
@@ -201,6 +208,9 @@ void MainWindow::open()
 
 
     openTTLV( fileName );
+
+    QModelIndex ri = left_model_->index(0,0);
+    left_tree_->expand(ri);
 }
 
 void MainWindow::insertData()
@@ -208,10 +218,7 @@ void MainWindow::insertData()
     InsertDataDlg insertDataDlg;
     int ret = insertDataDlg.exec();
 
-    if( ttlv_ == NULL )
-        ttlv_ = (BIN *)JS_calloc(1, sizeof(BIN));
-    else
-        JS_BIN_reset( ttlv_ );
+    JS_BIN_reset( &ttlv_ );
 
     if( ret == QDialog::Accepted )
     {
@@ -219,12 +226,15 @@ void MainWindow::insertData()
         strInput.remove(QRegExp("[\t\r\n\\s]"));
 
         if( insertDataDlg.getType() == 0 )
-            JS_BIN_decodeHex( strInput.toStdString().c_str(), ttlv_ );
+            JS_BIN_decodeHex( strInput.toStdString().c_str(), &ttlv_ );
         else
-            JS_BIN_decodeBase64( strInput.toStdString().c_str(), ttlv_ );
+            JS_BIN_decodeBase64( strInput.toStdString().c_str(), &ttlv_ );
 
         left_model_->parseTree();
         left_tree_->showRight();
+
+        QModelIndex ri = left_model_->index(0,0);
+        left_tree_->expand(ri);
     }
 }
 
@@ -244,6 +254,23 @@ void MainWindow::sendMsg()
 {
     SendMsgDlg sendMsgDlg;
     sendMsgDlg.exec();
+}
+
+void MainWindow::reqEncoder()
+{
+    ReqEncoderDlg reqEncoderDlg;
+    int ret = reqEncoderDlg.exec();
+
+    if( ret == QDialog::Accepted )
+    {
+        JS_BIN_reset( &ttlv_ );
+        JS_BIN_copy( &ttlv_, &reqEncoderDlg.getData() );
+        left_model_->parseTree();
+        left_tree_->showRight();
+
+        QModelIndex ri = left_model_->index(0,0);
+        left_tree_->expand(ri);
+    }
 }
 
 void MainWindow::editItem()

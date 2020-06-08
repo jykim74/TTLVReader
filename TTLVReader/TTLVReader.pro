@@ -29,6 +29,7 @@ SOURCES += \
     reader_tree_item.cpp \
     reader_tree_model.cpp \
     reader_tree_view.cpp \
+    req_encoder_dlg.cpp \
     send_msg_dlg.cpp \
     settings_dlg.cpp \
     settings_mgr.cpp
@@ -44,6 +45,7 @@ HEADERS += \
     reader_tree_item.h \
     reader_tree_model.h \
     reader_tree_view.h \
+    req_encoder_dlg.h \
     send_msg_dlg.h \
     settings_dlg.h \
     settings_mgr.h \
@@ -54,6 +56,7 @@ FORMS += \
     edit_dlg.ui \
     insert_data_dlg.ui \
     mainwindow.ui \
+    req_encoder_dlg.ui \
     send_msg_dlg.ui \
     settings_dlg.ui
 

@@ -25,5 +25,6 @@
         <file>images/branch-open.png</file>
         <file>images/vline.png</file>
         <file>ttlvreader.qss</file>
+        <file>images/encoder.png</file>
     </qresource>
 </RCC>

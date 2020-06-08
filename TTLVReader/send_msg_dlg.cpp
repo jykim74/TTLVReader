@@ -30,11 +30,16 @@ SendMsgDlg::~SendMsgDlg()
 
 void SendMsgDlg::setDefaults()
 {
-    QString strHost = "127.0.0.1";
-    QString strPort = "5696";
-    QString strCACert = "/Users/jykim/work/certs/root_cert.der";
-    QString strClientCert = "/Users/jykim/work/certs/client_certificate_john_smith.der";
-    QString strClientPriKey = "/Users/jykim/work/certs/client_key_john_smith.der";
+    QString strHost = "192.168.56.1";
+    QString strPort = "5000";
+
+    QString strCACert = "D:/certs/root_cert.der";
+    QString strClientCert = "D:/certs/client_cert.der";
+    QString strClientPriKey = "D:/certs/client_key.der";
+
+//    QString strCACert = "/Users/jykim/work/certs/root_cert.der";
+//    QString strClientCert = "/Users/jykim/work/certs/client_certificate_john_smith.der";
+//    QString strClientPriKey = "/Users/jykim/work/certs/client_key_john_smith.der";
 
     mHostText->setText( strHost );
     mPortText->setText( strPort );
@@ -87,7 +92,7 @@ void SendMsgDlg::send()
 {
     SSL_CTX *pCTX = NULL;
     SSL *pSSL = NULL;
-    BIN *pTTLV = NULL;
+
 
     BIN binCA = {0,0};
     BIN binCert = {0,0};
@@ -95,8 +100,8 @@ void SendMsgDlg::send()
     BIN binResponse = {0,0};
     char *pHex = NULL;
 
-    pTTLV = readerApplet->mainWindow()->getTTLV();
-    if( pTTLV == NULL ) return;
+    BIN TTLV = readerApplet->mainWindow()->getTTLV();
+    if( TTLV.nLen <= 0 ) return;
 
     QString strHost = mHostText->text();
     QString strPort = mPortText->text();
@@ -115,7 +120,7 @@ void SendMsgDlg::send()
     JS_SSL_connect( pCTX, strHost.toStdString().c_str(), strPort.toInt(), &pSSL );
     if( pSSL == NULL ) return;
 
-    int ret = JS_KMS_send( pSSL, pTTLV );
+    int ret = JS_KMS_send( pSSL, &TTLV );
 
     ret = JS_KMS_receive( pSSL, &binResponse );
     JS_BIN_encodeHex( &binResponse, &pHex );
@@ -134,13 +139,10 @@ void SendMsgDlg::send()
 
 void SendMsgDlg::viewResponse()
 {
-    BIN *pTTLV = readerApplet->mainWindow()->getTTLV();
+    BIN TTLV = readerApplet->mainWindow()->getTTLV();
 
-    if( pTTLV )
-    {
-        JS_BIN_reset( pTTLV );
-        JS_BIN_decodeHex( mResponseText->toPlainText().toStdString().c_str(), pTTLV );
-    }
+    JS_BIN_reset( &TTLV );
+    JS_BIN_decodeHex( mResponseText->toPlainText().toStdString().c_str(), &TTLV );
 
     readerApplet->mainWindow()->parseTree();
     readerApplet->mainWindow()->showRight();

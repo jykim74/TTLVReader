@@ -42,7 +42,7 @@ void EditDlg::accept()
     BIN     srcLength = {0,0};
     BIN     srcValue = {0,0};
 
-    BIN     *pTTLV = readerApplet->mainWindow()->getTTLV();
+    BIN     TTLV = readerApplet->mainWindow()->getTTLV();
 
     ReaderTreeItem *pItem = readerApplet->mainWindow()->currentItem();
     pDstTag = pItem->getTag();
@@ -66,16 +66,16 @@ void EditDlg::accept()
 
     int nOffset = pItem->getOffset();
 
-    memcpy( &pTTLV->pVal[nOffset], srcTag.pVal, srcTag.nLen );
+    memcpy( &TTLV.pVal[nOffset], srcTag.pVal, srcTag.nLen );
     nOffset += srcTag.nLen;
 
-    memcpy( &pTTLV->pVal[nOffset], srcType.pVal, srcType.nLen );
+    memcpy( &TTLV.pVal[nOffset], srcType.pVal, srcType.nLen );
     nOffset += srcType.nLen;
 
-    memcpy( &pTTLV->pVal[nOffset], srcLength.pVal, srcLength.nLen );
+    memcpy( &TTLV.pVal[nOffset], srcLength.pVal, srcLength.nLen );
     nOffset += srcLength.nLen;
 
-    memcpy( &pTTLV->pVal[nOffset], srcValue.pVal, srcValue.nLen );
+    memcpy( &TTLV.pVal[nOffset], srcValue.pVal, srcValue.nLen );
     nOffset += srcValue.nLen;
 
     JS_BIN_reset( &srcTag );

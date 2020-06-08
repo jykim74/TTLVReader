@@ -50,9 +50,9 @@ int ReaderTreeModel::parseConstruct( int offset, ReaderTreeItem *pParentItem )
     int         start_offset = offset;
     int         level = pParentItem->getLevel() + 1;
 
-    BIN         *pTTLV = readerApplet->mainWindow()->getTTLV();
+    BIN         TTLV = readerApplet->mainWindow()->getTTLV();
 
-    if( pTTLV == NULL || pTTLV->nLen <= offset ) return -1;
+    if( TTLV.nLen <= offset ) return -1;
 
     do {
         ReaderTreeItem *pItem = new ReaderTreeItem();
@@ -79,7 +79,7 @@ int ReaderTreeModel::parseConstruct( int offset, ReaderTreeItem *pParentItem )
 
         if( offset >= (pParentItem->getOffset() + 8 + pParentItem->getLengthInt()) )
             break;
-    } while ( next_offset > 0 && next_offset < pTTLV->nLen );
+    } while ( next_offset > 0 && next_offset < TTLV.nLen );
 
     return 0;
 }
@@ -91,8 +91,8 @@ int ReaderTreeModel::getItem( int offset, ReaderTreeItem *pItem )
     int     length = 0;
     int     pad = 0;
 
-    BIN     *pTTLV = readerApplet->mainWindow()->getTTLV();
-    if( pTTLV == NULL ) return -1;
+    BIN     TTLV = readerApplet->mainWindow()->getTTLV();
+    if( TTLV.nLen <= 0 ) return -1;
 
     pItem->dataReset();
 
@@ -101,10 +101,10 @@ int ReaderTreeModel::getItem( int offset, ReaderTreeItem *pItem )
     BIN *pLength = pItem->getLength();
     BIN *pValue = pItem->getValue();
 
-    JS_BIN_set( pTag, pTTLV->pVal + offset, 3 );
-    JS_BIN_set( pType, pTTLV->pVal + offset + 3, 1 );
-    JS_BIN_set( pLength, pTTLV->pVal + offset + 4, 4 );
-    JS_BIN_set( pValue, pTTLV->pVal + offset + 8, pItem->getLengthInt() );
+    JS_BIN_set( pTag, TTLV.pVal + offset, 3 );
+    JS_BIN_set( pType, TTLV.pVal + offset + 3, 1 );
+    JS_BIN_set( pLength, TTLV.pVal + offset + 4, 4 );
+    JS_BIN_set( pValue, TTLV.pVal + offset + 8, pItem->getLengthInt() );
 
     length = pItem->getLengthInt();
 

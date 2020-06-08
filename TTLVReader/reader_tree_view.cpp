@@ -88,13 +88,13 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
     int start_row = 0;
 
     QTableWidget* rightTable = readerApplet->mainWindow()->rightTable();
-    BIN *pTTLV = readerApplet->mainWindow()->getTTLV();
+    BIN TTLV = readerApplet->mainWindow()->getTTLV();
 
     int row_cnt = rightTable->rowCount();
     for( int k=0; k < row_cnt; k++ )
         rightTable->removeRow(0);
 
-    for( int i = 0; i < pTTLV->nLen; i++ )
+    for( int i = 0; i < TTLV.nLen; i++ )
     {
         int pos = 0;
         int len = 0;
@@ -109,7 +109,7 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
             rightTable->item( line, 0 )->setBackgroundColor( QColor(220,220,250) );
         }
 
-        hex.sprintf( "%02X", pTTLV->pVal[i] );
+        hex.sprintf( "%02X", TTLV.pVal[i] );
         pos = (i%16) + 1;
         rightTable->setItem( line, pos, new QTableWidgetItem(hex));
 
@@ -139,7 +139,7 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
         }
 
 
-        text += getch( pTTLV->pVal[i] );
+        text += getch( TTLV.pVal[i] );
 
         if( i % 16 - 15 == 0 )
         {
@@ -175,13 +175,13 @@ void ReaderTreeView::showRightPart( ReaderTreeItem *pItem )
     int pad = 0;
 
     QTableWidget* rightTable = readerApplet->mainWindow()->rightTable();
-    BIN *pTTLV = readerApplet->mainWindow()->getTTLV();
+    BIN TTLV = readerApplet->mainWindow()->getTTLV();
 
     length = pItem->getLengthInt();
     pad = 8 - length % 8;
     if( pad == 8 ) pad = 0;
 
-    JS_BIN_set( &binPart, pTTLV->pVal + pItem->getOffset(), 8 + length + pad );
+    JS_BIN_set( &binPart, TTLV.pVal + pItem->getOffset(), 8 + length + pad );
 
     int row_cnt = rightTable->rowCount();
     for( int k=0; k < row_cnt; k++ )
