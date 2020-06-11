@@ -2,9 +2,9 @@
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
 	<?include Includes.wxi?>
 	<Product Id="$(var.ProductGuid)"
-			Name='!(loc.AppName) $(var.CurrentBerViewerVersion)'
+			Name='!(loc.AppName) $(var.CurrentTTLVReaderVersion)'
 			Language='1033'
-			Version='$(var.CurrentBerViewerVersion)'
+			Version='$(var.CurrentTTLVReaderVersion)'
 			Manufacturer='!(loc.Manufacturer)'
 			UpgradeCode="$(var.CurrentUpdateGuid)" >
 
@@ -16,27 +16,27 @@
 				Compressed='yes' />
 
 		<!-- http://wixtoolset.org/documentation/manual/v3/howtos/ui_and_localization/configure_arp_appearance.html -->
-		<Icon Id="icon.ico" SourceFile="berviewer.ico"/>
+		<Icon Id="icon.ico" SourceFile="ttlvreader.ico"/>
 		<Property Id="ARPPRODUCTICON" Value="icon.ico" />
 
 		<!-- Don't allow downgrade. -->
 		<MajorUpgrade DowngradeErrorMessage='!(loc.DowngradeErrorMessage)' />
 
 		<Property Id="SUPPRESS_LAUNCH_BERVIEWER_AFTER_INSTALL_FINISH">
-			<RegistrySearch Id="SuppressLaunchBerViewerHKCU"
+			<RegistrySearch Id="SuppressLaunchTTLVReaderHKCU"
 							Root="HKCU"
 							Key="SOFTWARE\!(loc.AppName)"
 							Name="PreconfigureSuppressLaunchAfterInstall"
 							Type="raw" />
 
-			<RegistrySearch Id="SuppressLaunchBerViewerHKLM"
+			<RegistrySearch Id="SuppressLaunchTTLVReaderHKLM"
 							Root="HKLM"
 							Key="SOFTWARE\!(loc.AppName)"
 							Name="PreconfigureSuppressLaunchAfterInstall"
 							Type="raw" />
 		</Property>
 
-		<Media Id='1' Cabinet='berviewer.cab' EmbedCab='yes' />
+		<Media Id='1' Cabinet='ttlvreader.cab' EmbedCab='yes' />
 	
 		<Directory Id='TARGETDIR' Name='SourceDir'>
 			<Directory Id='DesktopFolder' Name="DesktopFolder" />
@@ -52,12 +52,12 @@
 			</Directory>
 		</Directory>
 
-		<Property Id="BERVIEWER_AUTO_START">1</Property>
+		<Property Id="TTLVREADER_AUTO_START">1</Property>
 
 		<!-- Auto-start via Registry -->
 		<DirectoryRef Id="INSTALLDIR">
 			<!--
-			<Component Id="BerViewerAutoStart" Guid="$(var.GuidOfAutoStartComponent)">
+			<Component Id="TTLVReaderAutoStart" Guid="$(var.GuidOfAutoStartComponent)">
 				<RegistryKey Root="HKCU"
 							Key="Software\Microsoft\Windows\CurrentVersion\Run"
 							Action="create">
@@ -69,15 +69,15 @@
 			-->
 		</DirectoryRef>
 
-		<DirectoryRef Id="BerViewerStartMenuFolder">
-			<Component Id="BerViewer_StartMenuShortCut" Guid="$(var.GuidOfStartMenuShortCutComponent)" >
-				<RemoveFolder Id="BerViewerStartMenuFolder" On="uninstall" />
+		<DirectoryRef Id="TTLVReaderStartMenuFolder">
+			<Component Id="TTLVReader_StartMenuShortCut" Guid="$(var.GuidOfStartMenuShortCutComponent)" >
+				<RemoveFolder Id="TTLVReaderStartMenuFolder" On="uninstall" />
 				<RegistryValue Root="HKCU" Key="Software\[Manufacturer]\[ProductName]"
 						Name="Installed" Type="integer" Value="1" KeyPath='yes' />
 
 				<!-- shortcut to 'start berviewer' -->
 				<!--
-				<Shortcut Id="ApplicationStartMenuShortCut" Directory="BerViewerStartMenuFolder"
+				<Shortcut Id="ApplicationStartMenuShortCut" Directory="TTLVReaderStartMenuFolder"
 							Name="!(loc.AppName)" Target="[#berviewer.exe]"
 							Hotkey="0" IconIndex="0" Show="normal"
 							WorkingDirectory="bin" />
@@ -97,17 +97,17 @@
 		</UI>
 
 		<Feature Id='Main' Level='1'>
-			<ComponentRef Id='BerViewer_StartMenuShortCut' />
+			<ComponentRef Id='TTLVReader_StartMenuShortCut' />
 			<!--
-			<ComponentRef Id='BerViewerAutoStart' />
+			<ComponentRef Id='TTLVReaderAutoStart' />
 			-->
 			<!-- defined in fragment.wxs -->
 			<ComponentGroupRef Id='group_bin' />
 		</Feature>
 
 		<Property Id="CHECKBOX_DEL_BERVIEWER_DATA" Secure="yes" />
-		<WixVariable Id="WixUIBannerBmp" Value="berviewer-top-banner.bmp" />
-		<WixVariable Id="WixUIDialogBmp" Value="berviewer-background.bmp" />
+		<WixVariable Id="WixUIBannerBmp" Value="ttlvreader-top-banner.bmp" />
+		<WixVariable Id="WixUIDialogBmp" Value="ttlvreader-background.bmp" />
 
 	</Product>
 </Wix>
