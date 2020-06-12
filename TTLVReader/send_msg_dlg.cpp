@@ -135,18 +135,23 @@ void SendMsgDlg::send()
     JS_BIN_reset( &binCert );
     JS_BIN_reset( &binPriKey );
     JS_BIN_reset( &binResponse );
+
+    JS_SSL_clear( pSSL );
+    JS_SSL_finish( &pCTX );
 }
 
 void SendMsgDlg::viewResponse()
 {
-    BIN TTLV = readerApplet->mainWindow()->getTTLV();
+    BIN binTTLV = {0,0};
 
-    JS_BIN_reset( &TTLV );
-    JS_BIN_decodeHex( mResponseText->toPlainText().toStdString().c_str(), &TTLV );
+    JS_BIN_decodeHex( mResponseText->toPlainText().toStdString().c_str(), &binTTLV );
 
+    readerApplet->mainWindow()->setTTLV( &binTTLV );
     readerApplet->mainWindow()->parseTree();
     readerApplet->mainWindow()->showRight();
     QDialog::accept();
+
+    JS_BIN_reset( &binTTLV );
 }
 
 void SendMsgDlg::close()

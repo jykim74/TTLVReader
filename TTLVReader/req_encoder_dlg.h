@@ -30,6 +30,8 @@ private slots:
     void clickRegister();
     void clickCreateKeyPair();
 
+    void clickGetAttributeList();
+
     void clickChange();
     void findInput();
 

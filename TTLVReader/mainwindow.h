@@ -30,6 +30,7 @@ public:
     BIN& getTTLV() { return ttlv_; };
     QTableWidget* rightTable() { return right_table_; };
     QTextEdit* rightText() { return right_text_; };
+    void setTTLV( const BIN *pTTLV );
 
     void parseTree();
     void showRight();

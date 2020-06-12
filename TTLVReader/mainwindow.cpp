@@ -319,6 +319,11 @@ void MainWindow::saveItemValue()
     JS_BIN_fileWrite( pItem->getValue(), fileName.toStdString().c_str() );
 }
 
+void MainWindow::setTTLV( const BIN *pTTLV )
+{
+    JS_BIN_reset( &ttlv_ );
+    JS_BIN_copy( &ttlv_, pTTLV );
+}
 
 void MainWindow::parseTree()
 {

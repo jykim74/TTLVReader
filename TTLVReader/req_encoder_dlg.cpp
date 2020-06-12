@@ -23,6 +23,8 @@ ReqEncoderDlg::ReqEncoderDlg(QWidget *parent) :
     connect( mVerifyBtn, SIGNAL(clicked()), this, SLOT(clickVerify()));
     connect( mRegisterBtn, SIGNAL(clicked()), this, SLOT(clickRegister()));
     connect( mCreateKeyPairBtn, SIGNAL(clicked()), this, SLOT(clickCreateKeyPair()));
+
+    connect( mGetAttributeListBtn, SIGNAL(clicked()), this, SLOT(clickGetAttributeList()));
 }
 
 ReqEncoderDlg::~ReqEncoderDlg()
@@ -148,4 +150,18 @@ void ReqEncoderDlg::clickRegister()
 void ReqEncoderDlg::clickCreateKeyPair()
 {
 
+}
+
+void ReqEncoderDlg::clickGetAttributeList()
+{
+    int ret = 0;
+    JS_BIN_reset( &data_ );
+
+    QString strUUID = mUUIDText->text();
+
+    ret = JS_KMS_encodeGetAttributeListReq( strUUID.toStdString().c_str(), &data_ );
+    if( ret == 0 )
+    {
+        QDialog::accept();
+    }
 }

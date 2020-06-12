@@ -41,7 +41,7 @@
 		<Directory Id='TARGETDIR' Name='SourceDir'>
 			<Directory Id='DesktopFolder' Name="DesktopFolder" />
 			<Directory Id="ProgramMenuFolder">
-				<Directory Id="BerViewerStartMenuFolder" Name='!(loc.AppName)' />
+				<Directory Id="TTLVReaderStartMenuFolder" Name='!(loc.AppName)' />
 			</Directory>
 
 			<Directory Id='ProgramFilesFolder' Name='PFiles'>
@@ -83,9 +83,9 @@
 							WorkingDirectory="bin" />
 				-->
 				<!-- shortcut to 'Uninstall' -->
-				<Shortcut Id="UninstallProduct" Name="!(loc.UninstallBerViewer)"
+				<Shortcut Id="UninstallProduct" Name="!(loc.UninstallTTLVReader)"
 							Target="[SystemFolder]msiexec.exe" IconIndex="0"
-							Arguments="/x [ProductCode]" Description="!(loc.UninstallBerViewer)" />
+							Arguments="/x [ProductCode]" Description="!(loc.UninstallTTLVReader)" />
 			</Component>
 		</DirectoryRef>
 
