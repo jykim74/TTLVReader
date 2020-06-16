@@ -12,6 +12,11 @@ public:
     void setShowFullText( bool val );
     bool showFullText();
 
+    QString KMIPHost();
+    void setKMIPHost( const QString strHost );
+    QString KMIPPort();
+    void setKMIPPort( const QString strPort );
+
 private:
     Q_DISABLE_COPY(SettingsMgr)
 };

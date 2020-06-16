@@ -3,6 +3,7 @@
 #include "send_msg_dlg.h"
 #include "mainwindow.h"
 #include "reader_applet.h"
+#include "settings_mgr.h"
 
 #include "js_kms.h"
 #include "js_ssl.h"
@@ -30,8 +31,9 @@ SendMsgDlg::~SendMsgDlg()
 
 void SendMsgDlg::setDefaults()
 {
-    QString strHost = "192.168.56.1";
-    QString strPort = "5000";
+    QString strHost = readerApplet->settingsMgr()->KMIPHost();
+    QString strPort = readerApplet->settingsMgr()->KMIPPort();
+
 
     QString strCACert = "D:/certs/root_cert.der";
     QString strClientCert = "D:/certs/client_cert.der";

@@ -23,22 +23,15 @@
       <attribute name="title">
        <string>Basic</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QCheckBox" name="mLatestVersionCheck">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="2" column="2">
+        <widget class="QLabel" name="label_3">
          <property name="text">
-          <string>Check for updates automatically</string>
+          <string>KMIP Port</string>
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QCheckBox" name="mShowFullTextCheck">
-         <property name="text">
-          <string>Show full text in reader</string>
-         </property>
-        </widget>
-       </item>
-       <item>
+       <item row="3" column="0">
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
@@ -50,6 +43,33 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="mKMIPHostText"/>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>KMIP Host</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QLineEdit" name="mKMIPPortText"/>
+       </item>
+       <item row="1" column="0" colspan="4">
+        <widget class="QCheckBox" name="mShowFullTextCheck">
+         <property name="text">
+          <string>Show full text in reader</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="4">
+        <widget class="QCheckBox" name="mLatestVersionCheck">
+         <property name="text">
+          <string>Check for updates automatically</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>

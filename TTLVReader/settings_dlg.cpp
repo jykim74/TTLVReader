@@ -36,6 +36,12 @@ void SettingsDlg::initialize()
     }
 #endif
 
+    QString strKMIPHost = mgr->KMIPHost();
+    mKMIPHostText->setText( strKMIPHost );
+
+    QString strKMIPPort = mgr->KMIPPort();
+    mKMIPPortText->setText( strKMIPPort );
+
     mLangCombo->setCurrentIndex(I18NHelper::getInstance()->preferredLanguage());
 }
 
@@ -51,6 +57,9 @@ void SettingsDlg::updateSettings()
         AutoUpdateService::instance()->setAutoUpdateEnabled(enabled);
     }
 #endif
+
+    mgr->setKMIPHost( mKMIPHostText->text() );
+    mgr->setKMIPPort( mKMIPPortText->text() );
 
     bool language_changed = false;
 
