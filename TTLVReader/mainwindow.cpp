@@ -146,12 +146,17 @@ void MainWindow::createActions()
     editAct->setStatusTip(tr("Edit TTLV"));
 
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
+    QToolBar *helpToolBar = addToolBar( tr("Help" ));
 
     QAction *settingAct = helpMenu->addAction( tr("&Settings"), this, &MainWindow::setting );
     settingAct->setStatusTip(tr("Set the variable"));
 
-    QAction *aboutAct = helpMenu->addAction( tr("&About TTLVReader"), this, &MainWindow::about );
+    const QIcon aboutIcon = QIcon::fromTheme( "document-about", QIcon(":/images/ttlvreader.png"));
+    QAction *aboutAct = new QAction( aboutIcon, tr( "&About TTLVReader"), this );
     aboutAct->setStatusTip(tr("Show the TTVLReader" ));
+    connect( aboutAct, &QAction::triggered, this, &MainWindow::about );
+    helpMenu->addAction( aboutAct );
+    helpToolBar->addAction( aboutAct );
 }
 
 void MainWindow::createStatusBar()
