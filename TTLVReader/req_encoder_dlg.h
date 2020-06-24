@@ -32,8 +32,8 @@ private slots:
 
     void clickGetAttributeList();
 
-    void clickChange();
     void findInput();
+    void algChanged( int index );
 
 private:
     void initialize();

@@ -14,21 +14,10 @@
    <string>Request Encoder</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="1" column="3">
-    <widget class="QPushButton" name="mFindInputBtn">
-     <property name="text">
-      <string>FindInput</string>
-     </property>
-    </widget>
+   <item row="5" column="0" colspan="4">
+    <widget class="QPlainTextEdit" name="mOutputText"/>
    </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>UUID</string>
-     </property>
-    </widget>
-   </item>
-   <item row="8" column="0" colspan="4">
+   <item row="9" column="0" colspan="4">
     <layout class="QHBoxLayout" name="horizontalLayout_3">
      <property name="topMargin">
       <number>0</number>
@@ -63,21 +52,59 @@
      </item>
     </layout>
    </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="label_3">
+   <item row="1" column="2">
+    <widget class="QComboBox" name="mObjectTypeCombo"/>
+   </item>
+   <item row="1" column="1">
+    <widget class="QLabel" name="label_2">
      <property name="text">
-      <string>Input</string>
+      <string>ObjectType</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="3">
-    <widget class="QPushButton" name="mChangeBtn">
+   <item row="1" column="3">
+    <widget class="QPushButton" name="mFindInputBtn">
      <property name="text">
-      <string>Change</string>
+      <string>FindInput</string>
      </property>
     </widget>
    </item>
    <item row="7" column="0" colspan="4">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="mEncryptBtn">
+       <property name="text">
+        <string>Encrypt</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mDecryptBtn">
+       <property name="text">
+        <string>Decrypt</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mSignBtn">
+       <property name="text">
+        <string>Sign</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mVerifyBtn">
+       <property name="text">
+        <string>Verify</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="8" column="0" colspan="4">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <property name="topMargin">
       <number>0</number>
@@ -112,10 +139,69 @@
      </item>
     </layout>
    </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>UUID</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Input</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Output</string>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="0" colspan="4">
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="mMACBtn">
+       <property name="text">
+        <string>MAC</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mLocateBtn">
+       <property name="text">
+        <string>Locate</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mDeriveKeyBtn">
+       <property name="text">
+        <string>DeriveKey</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mSplitKeyBtn">
+       <property name="text">
+        <string>SplitKey</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="QLineEdit" name="mUUIDText"/>
+   </item>
    <item row="2" column="0" colspan="4">
     <widget class="QPlainTextEdit" name="mInputText"/>
    </item>
-   <item row="5" column="0" colspan="4">
+   <item row="6" column="0" colspan="4">
     <layout class="QGridLayout" name="gridLayout_2">
      <property name="topMargin">
       <number>0</number>
@@ -151,97 +237,34 @@
     </layout>
    </item>
    <item row="3" column="0">
-    <widget class="QLabel" name="label_4">
+    <widget class="QLabel" name="label_5">
      <property name="text">
-      <string>Output</string>
+      <string>Algorithm</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="0" colspan="4">
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QPushButton" name="mEncryptBtn">
-       <property name="text">
-        <string>Encrypt</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="mDecryptBtn">
-       <property name="text">
-        <string>Decrypt</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="mSignBtn">
-       <property name="text">
-        <string>Sign</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="mVerifyBtn">
-       <property name="text">
-        <string>Verify</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+   <item row="3" column="1">
+    <widget class="QComboBox" name="mAlgCombo"/>
    </item>
-   <item row="4" column="0" colspan="4">
-    <widget class="QPlainTextEdit" name="mOutputText"/>
-   </item>
-   <item row="9" column="0" colspan="4">
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
-     <property name="topMargin">
-      <number>0</number>
-     </property>
-     <item>
-      <widget class="QPushButton" name="mMACBtn">
-       <property name="text">
-        <string>MAC</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="mLocateBtn">
-       <property name="text">
-        <string>Locate</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="mDeriveKeyBtn">
-       <property name="text">
-        <string>DeriveKey</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="mSplitKeyBtn">
-       <property name="text">
-        <string>SplitKey</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="1" column="1">
-    <widget class="QLabel" name="label_2">
+   <item row="3" column="2">
+    <widget class="QLabel" name="mOptionLabel">
      <property name="text">
-      <string>ObjectType</string>
+      <string>KeyLength</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="2">
-    <widget class="QComboBox" name="mObjectTypeCombo"/>
+   <item row="3" column="3">
+    <widget class="QComboBox" name="mOptionCombo"/>
    </item>
-   <item row="0" column="1" colspan="2">
-    <widget class="QLineEdit" name="mUUIDText"/>
+   <item row="4" column="3">
+    <widget class="QComboBox" name="mHashCombo"/>
+   </item>
+   <item row="4" column="2">
+    <widget class="QLabel" name="label_7">
+     <property name="text">
+      <string>Hash</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
