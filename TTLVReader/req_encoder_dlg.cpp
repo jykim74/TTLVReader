@@ -129,13 +129,18 @@ void ReqEncoderDlg::clickGet()
     int ret = 0;
     JS_BIN_reset( &data_ );
 
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
     QString strUUID = mUUIDText->text();
 
-    ret = JS_KMS_encodeGetReq( "tesetUser", "testPasswd", strUUID.toStdString().c_str(), &data_ );
+    ret = JS_KMS_encodeGetReq( &sAuth, strUUID.toStdString().c_str(), &data_ );
     if( ret == 0 )
     {
         QDialog::accept();
     }
+
+    JS_KMS_resetAuthentication( &sAuth );
 }
 
 void ReqEncoderDlg::clickActivate()
@@ -144,8 +149,14 @@ void ReqEncoderDlg::clickActivate()
     JS_BIN_reset( &data_ );
 
     QString strUUID = mUUIDText->text();
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
 
-    ret = JS_KMS_encodeActivateReq( strUUID.toStdString().c_str(), &data_ );
+
+    ret = JS_KMS_encodeActivateReq( &sAuth, strUUID.toStdString().c_str(), &data_ );
+
+    JS_KMS_resetAuthentication( &sAuth );
+
     if( ret == 0 )
     {
         QDialog::accept();
@@ -157,7 +168,12 @@ void ReqEncoderDlg::clickCreate()
     int ret = 0;
     JS_BIN_reset( &data_ );
 
-    ret = JS_KMS_encodeCreateReq( &data_ );
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+    ret = JS_KMS_encodeCreateReq( &sAuth, &data_ );
+
+    JS_KMS_resetAuthentication( &sAuth );
 
     if( ret == 0 )
     {
@@ -172,7 +188,14 @@ void ReqEncoderDlg::clickDestroy()
 
     QString strUUID = mUUIDText->text();
 
-    ret = JS_KMS_encodeDestroyReq( strUUID.toStdString().c_str(), &data_ );
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+
+    ret = JS_KMS_encodeDestroyReq( &sAuth, strUUID.toStdString().c_str(), &data_ );
+
+    JS_KMS_resetAuthentication( &sAuth );
+
     if( ret == 0 )
     {
         QDialog::accept();
@@ -190,13 +213,19 @@ void ReqEncoderDlg::clickEncrypt()
     QString strUUID = mUUIDText->text();
     QString strInput = mInputText->toPlainText();
 
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+
     JS_BIN_set( &binIV, (unsigned char *)"1234567890123456", 16);
     JS_BIN_set( &binPlain, (unsigned char *)strInput.toStdString().c_str(), strInput.length() );
 
-    ret = JS_KMS_encodeEncryptReq( strUUID.toStdString().c_str(), &binIV, &binPlain, &data_ );
+    ret = JS_KMS_encodeEncryptReq( &sAuth, strUUID.toStdString().c_str(), &binIV, &binPlain, &data_ );
 
     JS_BIN_reset( &binIV );
     JS_BIN_reset( &binPlain );
+
+    JS_KMS_resetAuthentication( &sAuth );
 
     if( ret == 0 )
     {
@@ -214,13 +243,19 @@ void ReqEncoderDlg::clickDecrypt()
     QString strUUID = mUUIDText->text();
     QString strInput = mInputText->toPlainText();
 
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+
     JS_BIN_set( &binIV, (unsigned char *)"1234567890123456", 16);
     JS_BIN_decodeHex( strInput.toStdString().c_str(), &binEncrypt );
 
-    ret = JS_KMS_encodeDecryptReq( strUUID.toStdString().c_str(), &binIV, &binEncrypt, &data_ );
+    ret = JS_KMS_encodeDecryptReq( &sAuth, strUUID.toStdString().c_str(), &binIV, &binEncrypt, &data_ );
 
     JS_BIN_reset( &binIV );
     JS_BIN_reset( &binEncrypt );
+
+    JS_KMS_resetAuthentication( &sAuth );
 
     if( ret == 0 )
     {
@@ -240,6 +275,10 @@ void ReqEncoderDlg::clickSign()
     QString strUUID = mUUIDText->text();
     QString strInput = mInputText->toPlainText();
 
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+
     if( mAlgCombo->currentIndex() == 0 )
         nAlg = JS_PKI_KEY_TYPE_RSA;
     else if( mAlgCombo->currentIndex() == 1 )
@@ -251,9 +290,11 @@ void ReqEncoderDlg::clickSign()
 
     JS_BIN_set( &binPlain, (unsigned char *)strInput.toStdString().c_str(), strInput.length() );
 
-    ret = JS_KMS_encodeSignReq( strUUID.toStdString().c_str(), nMech, &binPlain, &data_ );
+    ret = JS_KMS_encodeSignReq( &sAuth, strUUID.toStdString().c_str(), nMech, &binPlain, &data_ );
 
     JS_BIN_reset( &binPlain );
+
+    JS_KMS_resetAuthentication( &sAuth );
 
     if( ret == 0 )
     {
@@ -277,6 +318,10 @@ void ReqEncoderDlg::clickVerify()
     QString strInput = mInputText->toPlainText();
     QString strOutput = mOutputText->toPlainText();
 
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+
     if( mAlgCombo->currentIndex() == 0 )
         nAlg = JS_PKI_KEY_TYPE_RSA;
     else if( mAlgCombo->currentIndex() == 1 )
@@ -289,10 +334,12 @@ void ReqEncoderDlg::clickVerify()
     JS_BIN_set( &binPlain, (unsigned char *)strInput.toStdString().c_str(), strInput.length() );
     JS_BIN_decodeHex( strOutput.toStdString().c_str(), &binSign );
 
-    ret = JS_KMS_encodeVerifyReq( strUUID.toStdString().c_str(), nMech, &binPlain, &binSign, &data_ );
+    ret = JS_KMS_encodeVerifyReq( &sAuth, strUUID.toStdString().c_str(), nMech, &binPlain, &binSign, &data_ );
 
     JS_BIN_reset( &binPlain );
     JS_BIN_reset( &binSign );
+
+    JS_KMS_resetAuthentication( &sAuth );
 
     if( ret == 0 )
     {
@@ -309,6 +356,10 @@ void ReqEncoderDlg::clickRegister()
 
     int nType = 0;
     BIN binInput = {0};
+
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
 
     QString strInput = mInputText->toPlainText();
 
@@ -334,9 +385,10 @@ void ReqEncoderDlg::clickRegister()
         nParam = KMIP_CURVE_P_256;
     }
 
-    ret = JS_KMS_encodeRegisterReq( nAlg, nParam, nType, &binInput, &data_ );
+    ret = JS_KMS_encodeRegisterReq( &sAuth, nAlg, nParam, nType, &binInput, &data_ );
 
     JS_BIN_reset( &binInput );
+    JS_KMS_resetAuthentication( &sAuth );
 
     if( ret == 0 )
     {
@@ -352,6 +404,10 @@ void ReqEncoderDlg::clickCreateKeyPair()
 
     JS_BIN_reset( &data_ );
 
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+
     if( mAlgCombo->currentIndex() == 0 )
     {
         nAlg = JS_PKI_KEY_TYPE_RSA;
@@ -363,7 +419,10 @@ void ReqEncoderDlg::clickCreateKeyPair()
         nParam = KMIP_CURVE_P_256;
     }
 
-    ret = JS_KMS_encodeCreateKeyPairReq( nAlg, nParam, &data_ );
+    ret = JS_KMS_encodeCreateKeyPairReq( &sAuth, nAlg, nParam, &data_ );
+
+    JS_KMS_resetAuthentication( &sAuth );
+
     if( ret == 0 )
     {
         QDialog::accept();
@@ -377,7 +436,14 @@ void ReqEncoderDlg::clickGetAttributeList()
 
     QString strUUID = mUUIDText->text();
 
-    ret = JS_KMS_encodeGetAttributeListReq( strUUID.toStdString().c_str(), &data_ );
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+
+    ret = JS_KMS_encodeGetAttributeListReq( &sAuth, strUUID.toStdString().c_str(), &data_ );
+
+    JS_KMS_resetAuthentication( &sAuth );
+
     if( ret == 0 )
     {
         QDialog::accept();
