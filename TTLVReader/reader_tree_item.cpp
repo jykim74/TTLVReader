@@ -3,6 +3,8 @@
 #include "js_kms.h"
 #include "reader_tree_item.h"
 
+
+
 ReaderTreeItem::ReaderTreeItem()
 {
     tag_ = (BIN *)JS_calloc(1, sizeof(BIN));
@@ -105,7 +107,7 @@ int32 ReaderTreeItem::getLengthInt()
 
     int32   len = 0;
 
-    len = JS_BIN_getInt32FromBE( length_ );
+    len = JS_BIN_int( length_ );
 
     return len;
 }
@@ -116,7 +118,7 @@ QString ReaderTreeItem::getTagName()
     QString strName;
     if( tag_ == NULL ) return "";
 
-    nTag = JS_BIN_getInt32FromBE( tag_ );
+    nTag = JS_BIN_int( tag_ );
 
     strName = JS_KMS_tagName( nTag );
 
@@ -130,7 +132,7 @@ QString ReaderTreeItem::getTypeName()
 
     if( type_ == NULL ) return "";
 
-    nType = JS_BIN_getInt32FromBE( type_ );
+    nType = JS_BIN_int( type_ );
 
     strName = JS_KMS_typeName( nType );
 
@@ -142,7 +144,7 @@ QString ReaderTreeItem::getTitle()
     QString strTitle;
     QString strTag = getTagName();
     QString strType = getTypeName();
-    int nType = JS_BIN_getInt32FromBE( type_ );
+    int nType = JS_BIN_int( type_ );
 
     if( nType == KMIP_TYPE_INTEGER ||
             nType == KMIP_TYPE_TEXT_STRING ||
@@ -161,12 +163,12 @@ QString ReaderTreeItem::getTitle()
 
 QString ReaderTreeItem::getPrintValue()
 {
-    int nType = JS_BIN_getInt32FromBE( type_ );
+    int nType = JS_BIN_int( type_ );
     QString strPrint;
 
     if( nType == KMIP_TYPE_INTEGER )
     {
-        int num = JS_BIN_getInt32FromBE( value_ );
+        int num = JS_BIN_int( value_ );
         strPrint = QString( "%1" ).arg( num );
     }
     else if( nType == KMIP_TYPE_TEXT_STRING )
@@ -180,7 +182,7 @@ QString ReaderTreeItem::getPrintValue()
     }
     else if( nType == KMIP_TYPE_ENUMERATION )
     {
-        int num = JS_BIN_getInt32FromBE( value_ );
+        int num = JS_BIN_int( value_ );
         strPrint = QString( "%1" ).arg(num);
     }
     else
