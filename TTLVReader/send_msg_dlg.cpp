@@ -151,7 +151,10 @@ void SendMsgDlg::viewResponse()
     readerApplet->mainWindow()->setTTLV( &binTTLV );
     readerApplet->mainWindow()->parseTree();
     readerApplet->mainWindow()->showRight();
+    readerApplet->mainWindow()->expandRoot();
+
     QDialog::accept();
+
 
     JS_BIN_reset( &binTTLV );
 }

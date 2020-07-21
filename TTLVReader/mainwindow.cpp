@@ -212,6 +212,8 @@ void MainWindow::open()
                                     "All Files (*.*);;BIN files(*.bin);;Hex Files(*.hex)");
 
 
+    if( fileName.isEmpty() ) return;
+
     openTTLV( fileName );
 
     QModelIndex ri = left_model_->index(0,0);
@@ -348,4 +350,10 @@ ReaderTreeItem* MainWindow::currentItem()
     item = (ReaderTreeItem *)left_model_->itemFromIndex( index );
 
     return item;
+}
+
+void MainWindow::expandRoot()
+{
+    QModelIndex ri = left_model_->index(0,0);
+    left_tree_->expand(ri);
 }

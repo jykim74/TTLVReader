@@ -35,6 +35,7 @@ public:
     void parseTree();
     void showRight();
     ReaderTreeItem* currentItem();
+    void expandRoot();
 
 private slots:
     void newFile();
