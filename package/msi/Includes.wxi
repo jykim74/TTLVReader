@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include Id="TTLVReaderInclude">
-  <?define CurrentTTLVReaderVersion="0.9.1" ?>
+  <?define CurrentTTLVReaderVersion="0.9.2" ?>
 
   <!-- BerViewer Product Guid  -->
-  <?define ProductGuid="4a082855-ce20-4bb1-bfe5-6f7a2d20db0a" ?> <!-- Version 0.9.1 -->
+  <?define ProductGuid="bdc3d939-285c-48b1-bd69-aa8d535e85c9" ?> <!-- Version 0.9.1 -->
+  <!-- ?define ProductGuid="4a082855-ce20-4bb1-bfe5-6f7a2d20db0a" ?> Version 0.9.1 -->
   <!-- <?define ProductGuid="AC80483F-C23F-4BD8-806D-C8A907D777A0" ?> Version example -->
 
   <?define CurrentUpdateGuid="DC80483F-C23F-4BD8-806D-C8A907D777AF" ?>
