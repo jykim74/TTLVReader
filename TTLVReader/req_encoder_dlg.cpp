@@ -68,6 +68,15 @@ ReqEncoderDlg::ReqEncoderDlg(QWidget *parent) :
     connect( mCreateKeyPairBtn, SIGNAL(clicked()), this, SLOT(clickCreateKeyPair()));
 
     connect( mGetAttributeListBtn, SIGNAL(clicked()), this, SLOT(clickGetAttributeList()));
+    connect( mSetAttributeBtn, SIGNAL(clicked()), this, SLOT(clickSetAttribute()));
+    connect( mGetAttribute, SIGNAL(clicked()), this, SLOT(clickGetAttribute()));
+    connect( mModifyAttributeBtn, SIGNAL(clicked()), this, SLOT(clickModifyAttribute()));
+    connect( mDeleteAttributeBtn, SIGNAL(clicked()), this, SLOT(clickDeleteAttribute()));
+    connect( mRevokeBtn, SIGNAL(clicked()), this, SLOT(clickRevoke()));
+    connect( mMACBtn, SIGNAL(clicked()), this, SLOT(clickMAC()));
+    connect( mLocateBtn, SIGNAL(clicked()), this, SLOT(clickLocate()));
+    connect( mDeriveKeyBtn, SIGNAL(clicked()), this, SLOT(clickDeriveKey()));
+    connect( mSplitKeyBtn, SIGNAL(clicked()), this, SLOT(clickSplitKey()));
 
     connect( mAlgCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(algChanged(int)));
 
@@ -448,4 +457,49 @@ void ReqEncoderDlg::clickGetAttributeList()
     {
         QDialog::accept();
     }
+}
+
+void ReqEncoderDlg::clickSetAttribute()
+{
+
+}
+
+void ReqEncoderDlg::clickGetAttribute()
+{
+
+}
+
+void ReqEncoderDlg::clickModifyAttribute()
+{
+
+}
+
+void ReqEncoderDlg::clickDeleteAttribute()
+{
+
+}
+
+void ReqEncoderDlg::clickRevoke()
+{
+
+}
+
+void ReqEncoderDlg::clickMAC()
+{
+
+}
+
+void ReqEncoderDlg::clickLocate()
+{
+
+}
+
+void ReqEncoderDlg::clickDeriveKey()
+{
+
+}
+
+void ReqEncoderDlg::clickSplitKey()
+{
+
 }

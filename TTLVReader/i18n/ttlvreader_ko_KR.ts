@@ -19,6 +19,23 @@
         <source>Current Version</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>About %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>About %1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This is freeware tool to decode TTLV in kmip If you do not use this for commercial purposes, you can use it freely If you have any opinions on this tool, please send me a mail.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copyright (C) 2019 ~ 2020 JongYeob Kim<byte value="xd"/>
+mailto : jykim74@gmail.com</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EditDlg</name>
@@ -168,6 +185,18 @@
         <source>Save as...</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>ReqEncoder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Request message encoder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ReaderApplet</name>
@@ -200,6 +229,141 @@
     </message>
     <message>
         <source>SaveItemValue</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ReqEncoderDlg</name>
+    <message>
+        <source>Request Encoder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UUID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ObjectType</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>KeyLength</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ModifyAttribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GetAttributeList</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DeleteAttribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Revoke</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Register</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CreateKeyPair</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SetAttribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GetAttribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Get</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destroy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Algorithm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Encrypt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Decrypt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sign</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Verify</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>FindInput</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>MAC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DeriveKey</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SplitKey</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Authentication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>UserID</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>NamedCurve</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -294,6 +458,14 @@
     </message>
     <message>
         <source>You have changed language. Restart to apply it?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>KMIP Port</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>KMIP Host</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -31,6 +31,16 @@ private slots:
     void clickCreateKeyPair();
 
     void clickGetAttributeList();
+    void clickSetAttribute();
+    void clickGetAttribute();
+    void clickModifyAttribute();
+    void clickDeleteAttribute();
+    void clickRevoke();
+    void clickMAC();
+    void clickLocate();
+    void clickDeriveKey();
+    void clickSplitKey();
+
 
     void findInput();
     void algChanged( int index );
