@@ -2,6 +2,7 @@
 #include "req_encoder_dlg.h"
 #include "js_pki.h"
 #include "js_pkcs11.h"
+#include "common.h"
 
 #include <QFileDialog>
 
@@ -116,9 +117,9 @@ void ReqEncoderDlg::findInput()
     BIN binFile = {0,0};
     char *pHex = NULL;
 
-    QString fileName = QFileDialog::getOpenFileName( this, "Object file",
-                                    QDir::currentPath(),
-                                    "All Files (*.*);;BIN files(*.bin);;Hex Files(*.hex)");
+    QString strPath = QDir::currentPath();
+    QString fileName = findFile( this, JS_FILE_TYPE_BIN, strPath );
+    if( fileName.isEmpty() ) return;
 
     JS_BIN_fileRead( fileName.toStdString().c_str(), &binFile );
     JS_BIN_encodeHex( &binFile, &pHex );

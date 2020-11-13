@@ -20,6 +20,7 @@ DEFINES += TTLV_READER_VERSION=$$PROJECT_VERSION
 SOURCES += \
     about_dlg.cpp \
     auto_update_service.cpp \
+    common.cpp \
     edit_dlg.cpp \
     i18n_helper.cpp \
     insert_data_dlg.cpp \
@@ -37,6 +38,7 @@ SOURCES += \
 HEADERS += \
     about_dlg.h \
     auto_update_service.h \
+    common.h \
     edit_dlg.h \
     i18n_helper.h \
     insert_data_dlg.h \

@@ -11,6 +11,7 @@
 #include "send_msg_dlg.h"
 #include "edit_dlg.h"
 #include "req_encoder_dlg.h"
+#include "common.h"
 
 #include <QtWidgets>
 #include <QFileDialog>
@@ -206,12 +207,9 @@ int MainWindow::openTTLV(const QString pPath)
 }
 
 void MainWindow::open()
-{
-    QString fileName = QFileDialog::getOpenFileName( this, "TTLV file",
-                                    QDir::currentPath(),
-                                    "All Files (*.*);;BIN files(*.bin);;Hex Files(*.hex)");
-
-
+{   
+    QString strPath = QDir::currentPath();
+    QString fileName = findFile( this, JS_FILE_TYPE_BIN, strPath );
     if( fileName.isEmpty() ) return;
 
     openTTLV( fileName );

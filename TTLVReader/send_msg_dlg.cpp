@@ -4,6 +4,7 @@
 #include "mainwindow.h"
 #include "reader_applet.h"
 #include "settings_mgr.h"
+#include "common.h"
 
 #include "js_kms.h"
 #include "js_ssl.h"
@@ -50,43 +51,31 @@ void SendMsgDlg::setDefaults()
     mClientPriKeyPathText->setText( strClientPriKey );
 }
 
-QString SendMsgDlg::getFilePath()
-{
-    QString strFilter = "All Files (*)";
-//    QString strPath = QDir::currentPath();
-//    QString strPath = QDir::homePath();
-
-    QFileDialog::Options options;
-    options |= QFileDialog::DontUseNativeDialog;
-
-    QString selectedFilter;
-    QString filePath = QFileDialog::getOpenFileName( this,
-                                                     tr("PKI Test file"),
-                                                     QDir::homePath(),
-                                                     strFilter,
-                                                     &selectedFilter,
-                                                     options );
-
-    QFileInfo fileInfo( filePath );
-
-    return filePath;
-}
 
 void SendMsgDlg::findCA()
 {
-    QString filePath = getFilePath();
+    QString strPath = QDir::currentPath();
+    QString filePath = findFile( this, JS_FILE_TYPE_CERT, strPath );
+    if( filePath.isEmpty() ) return;
+
     mCACertPathText->setText( filePath );
 }
 
 void SendMsgDlg::findCert()
 {
-    QString filePath = getFilePath();
+    QString strPath = QDir::currentPath();
+    QString filePath = findFile( this, JS_FILE_TYPE_CERT, strPath );
+    if( filePath.isEmpty() ) return;
+
     mClientCertPathText->setText( filePath );
 }
 
 void SendMsgDlg::findPriKey()
 {
-    QString filePath = getFilePath();
+    QString strPath = QDir::currentPath();
+    QString filePath = findFile( this, JS_FILE_TYPE_PRIKEY, strPath );
+    if( filePath.isEmpty() ) return;
+
     mClientPriKeyPathText->setText( filePath );
 }
 

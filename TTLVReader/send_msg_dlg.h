@@ -26,7 +26,6 @@ private slots:
 
 private:
     void setDefaults();
-    QString getFilePath();
 };
 
 #endif // SEND_MSG_DLG_H
