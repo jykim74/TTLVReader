@@ -77,7 +77,8 @@ ReqEncoderDlg::ReqEncoderDlg(QWidget *parent) :
     connect( mMACBtn, SIGNAL(clicked()), this, SLOT(clickMAC()));
     connect( mLocateBtn, SIGNAL(clicked()), this, SLOT(clickLocate()));
     connect( mDeriveKeyBtn, SIGNAL(clicked()), this, SLOT(clickDeriveKey()));
-    connect( mSplitKeyBtn, SIGNAL(clicked()), this, SLOT(clickSplitKey()));
+    connect( mCreateSplitKeyBtn, SIGNAL(clicked()), this, SLOT(clickCreateSplitKey()));
+    connect( mJoinSplitKeyBtn, SIGNAL(clicked()), this, SLOT(clickJoinSplitKey()));
 
     connect( mAlgCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(algChanged(int)));
 
@@ -500,7 +501,12 @@ void ReqEncoderDlg::clickDeriveKey()
 
 }
 
-void ReqEncoderDlg::clickSplitKey()
+void ReqEncoderDlg::clickCreateSplitKey()
+{
+
+}
+
+void ReqEncoderDlg::clickJoinSplitKey()
 {
 
 }

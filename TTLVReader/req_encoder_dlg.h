@@ -39,7 +39,8 @@ private slots:
     void clickMAC();
     void clickLocate();
     void clickDeriveKey();
-    void clickSplitKey();
+    void clickCreateSplitKey();
+    void clickJoinSplitKey();
 
 
     void findInput();
