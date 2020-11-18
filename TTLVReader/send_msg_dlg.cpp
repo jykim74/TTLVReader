@@ -36,9 +36,9 @@ void SendMsgDlg::setDefaults()
     QString strPort = readerApplet->settingsMgr()->KMIPPort();
 
 
-    QString strCACert = "D:/certs/root_cert.der";
-    QString strClientCert = "D:/certs/client_cert.der";
-    QString strClientPriKey = "D:/certs/client_key.der";
+    QString strCACert = "D:/jsca/ssl_root_cert.der";
+    QString strClientCert = "D:/jsca/ssl_cert.der";
+    QString strClientPriKey = "D:/jsca/ssl_pri.der";
 
 //    QString strCACert = "/Users/jykim/work/certs/root_cert.der";
 //    QString strClientCert = "/Users/jykim/work/certs/client_certificate_john_smith.der";

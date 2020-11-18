@@ -41,6 +41,9 @@ private slots:
     void clickDeriveKey();
     void clickCreateSplitKey();
     void clickJoinSplitKey();
+    void clickRNGRetrieve();
+    void clickRNGSeed();
+    void clickHash();
 
 
     void findInput();

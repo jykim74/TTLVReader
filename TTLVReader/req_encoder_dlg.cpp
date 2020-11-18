@@ -48,6 +48,20 @@ static int _getMech( int nAlg, QString strHash )
     return -1;
 }
 
+static int _getMechHash( QString strHash )
+{
+    if( strHash == "SHA1" )
+        return CKM_SHA_1;
+    else if( strHash == "SHA256" )
+        return CKM_SHA256;
+    else if( strHash == "SHA384" )
+        return CKM_SHA384;
+    else if( strHash == "SHA512" )
+        return CKM_SHA512;
+    else
+        return -1;
+}
+
 ReqEncoderDlg::ReqEncoderDlg(QWidget *parent) :
     QDialog(parent)
 {
@@ -79,6 +93,9 @@ ReqEncoderDlg::ReqEncoderDlg(QWidget *parent) :
     connect( mDeriveKeyBtn, SIGNAL(clicked()), this, SLOT(clickDeriveKey()));
     connect( mCreateSplitKeyBtn, SIGNAL(clicked()), this, SLOT(clickCreateSplitKey()));
     connect( mJoinSplitKeyBtn, SIGNAL(clicked()), this, SLOT(clickJoinSplitKey()));
+    connect( mRNGRetrieveBtn, SIGNAL(clicked()), this, SLOT(clickRNGRetrieve()));
+    connect( mRNGSeedBtn, SIGNAL(clicked()), this, SLOT(clickRNGSeed()));
+    connect( mHashBtn, SIGNAL(clicked()), this, SLOT(clickHash()));
 
     connect( mAlgCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(algChanged(int)));
 
@@ -509,4 +526,40 @@ void ReqEncoderDlg::clickCreateSplitKey()
 void ReqEncoderDlg::clickJoinSplitKey()
 {
 
+}
+
+void ReqEncoderDlg::clickRNGRetrieve()
+{
+
+}
+
+void ReqEncoderDlg::clickRNGSeed()
+{
+
+}
+
+void ReqEncoderDlg::clickHash()
+{
+    int ret = 0;
+    BIN binSrc = {0};
+
+    QString strHash = mHashCombo->currentText();
+    QString strInput = mInputText->toPlainText();
+
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+
+    int nMech = _getMechHash( strHash );
+
+    JS_BIN_decodeHex( strInput.toStdString().c_str(), &binSrc );
+
+    ret = JS_KMS_encodeHashReq( &sAuth, nMech, &binSrc, &data_ );
+
+    JS_KMS_resetAuthentication( &sAuth );
+
+    if( ret == 0 )
+    {
+        QDialog::accept();
+    }
 }
