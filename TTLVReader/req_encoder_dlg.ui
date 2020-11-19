@@ -112,16 +112,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="mSetAttributeBtn">
+      <widget class="QPushButton" name="mAddAttributeBtn">
        <property name="text">
-        <string>SetAttribute</string>
+        <string>AddAttribute</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="mGetAttribute">
+      <widget class="QPushButton" name="mGetAttributes">
        <property name="text">
-        <string>GetAttribute</string>
+        <string>GetAttributes</string>
        </property>
       </widget>
      </item>

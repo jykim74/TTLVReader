@@ -31,8 +31,8 @@ private slots:
     void clickCreateKeyPair();
 
     void clickGetAttributeList();
-    void clickSetAttribute();
-    void clickGetAttribute();
+    void clickAddAttribute();
+    void clickGetAttributes();
     void clickModifyAttribute();
     void clickDeleteAttribute();
     void clickRevoke();

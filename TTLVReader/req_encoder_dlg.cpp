@@ -83,8 +83,8 @@ ReqEncoderDlg::ReqEncoderDlg(QWidget *parent) :
     connect( mCreateKeyPairBtn, SIGNAL(clicked()), this, SLOT(clickCreateKeyPair()));
 
     connect( mGetAttributeListBtn, SIGNAL(clicked()), this, SLOT(clickGetAttributeList()));
-    connect( mSetAttributeBtn, SIGNAL(clicked()), this, SLOT(clickSetAttribute()));
-    connect( mGetAttribute, SIGNAL(clicked()), this, SLOT(clickGetAttribute()));
+    connect( mAddAttributeBtn, SIGNAL(clicked()), this, SLOT(clickAddAttribute()));
+    connect( mGetAttributes, SIGNAL(clicked()), this, SLOT(clickGetAttributes()));
     connect( mModifyAttributeBtn, SIGNAL(clicked()), this, SLOT(clickModifyAttribute()));
     connect( mDeleteAttributeBtn, SIGNAL(clicked()), this, SLOT(clickDeleteAttribute()));
     connect( mRevokeBtn, SIGNAL(clicked()), this, SLOT(clickRevoke()));
@@ -478,14 +478,30 @@ void ReqEncoderDlg::clickGetAttributeList()
     }
 }
 
-void ReqEncoderDlg::clickSetAttribute()
+void ReqEncoderDlg::clickAddAttribute()
 {
 
 }
 
-void ReqEncoderDlg::clickGetAttribute()
+void ReqEncoderDlg::clickGetAttributes()
 {
+    int ret = 0;
+    JS_BIN_reset( &data_ );
 
+    QString strUUID = mUUIDText->text();
+
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+
+    ret = JS_KMS_encodeGetAttributesReq( &sAuth, strUUID.toStdString().c_str(), NULL, &data_ );
+
+    JS_KMS_resetAuthentication( &sAuth );
+
+    if( ret == 0 )
+    {
+        QDialog::accept();
+    }
 }
 
 void ReqEncoderDlg::clickModifyAttribute()
