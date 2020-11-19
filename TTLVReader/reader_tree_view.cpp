@@ -150,7 +150,11 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
         }
     }
 
-    if( !text.isEmpty() ) rightTable->setItem( line, 17, new QTableWidgetItem(text));
+    if( !text.isEmpty() )
+    {
+        rightTable->setItem( line, 17, new QTableWidgetItem(text));
+        rightTable->item( line, 17 )->setBackgroundColor(QColor(210,240,210));
+    }
 
     QTextEdit *rightText = readerApplet->mainWindow()->rightText();
     QString strInfo = getInfoView( pItem );
@@ -237,7 +241,11 @@ void ReaderTreeView::showRightPart( ReaderTreeItem *pItem )
         }
     }
 
-    if( !text.isEmpty() ) rightTable->setItem( line, 17, new QTableWidgetItem(text));
+    if( !text.isEmpty() )
+    {
+        rightTable->setItem( line, 17, new QTableWidgetItem(text));
+        rightTable->item( line, 17 )->setBackgroundColor(QColor(210,240,210));
+    }
 
     QTextEdit *rightText = readerApplet->mainWindow()->rightText();
     QString strInfo = getInfoView( pItem );
