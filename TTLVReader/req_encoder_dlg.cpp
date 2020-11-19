@@ -530,12 +530,35 @@ void ReqEncoderDlg::clickJoinSplitKey()
 
 void ReqEncoderDlg::clickRNGRetrieve()
 {
+    int ret = 0;
+    int nLen = mLenText->text().toInt();
 
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+    ret = JS_KMS_encodeRNGRetrieveReq( &sAuth, nLen, &data_ );
+
+    JS_KMS_resetAuthentication( &sAuth );
+
+    if( ret == 0 ) QDialog::accept();
 }
 
 void ReqEncoderDlg::clickRNGSeed()
 {
+    int ret = 0;
+    BIN binSrc = {0};
 
+    QString strInput = mInputText->toPlainText();
+    JS_BIN_decodeHex( strInput.toStdString().c_str(), &binSrc );
+
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+    ret = JS_KMS_encodeRNGSeedReq( &sAuth, &binSrc, &data_ );
+
+    JS_KMS_resetAuthentication( &sAuth );
+
+    if( ret == 0 ) QDialog::accept();
 }
 
 void ReqEncoderDlg::clickHash()
