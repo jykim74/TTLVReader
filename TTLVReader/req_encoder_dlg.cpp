@@ -11,6 +11,8 @@ const QStringList kAlgList = { "RSA", "ECDSA" };
 const QStringList kRSAOptionList = { "1024", "2048", "3072", "4096" };
 const QStringList kECDSAOptionList = { "P-256" };
 const QStringList kHashList = { "None", "SHA1", "SHA256", "SHA384", "SHA512" };
+
+/*
 const QStringList kAttrList = { "",
     "Unique Identifier", "Name", "Object Type",
     "Cryptographic Algorithm", "Cryptographic Length", "Cryptographic Parameters", "Cryptographic Domain Parameters",
@@ -24,6 +26,19 @@ const QStringList kAttrList = { "",
     "Application Specific Information", "Contact Information", "Last Change Date",
     "Custom Attribute", "Alternative Name", "Key Value Present", "Key Value Location",
     "Original Creation Date", "Sensitive"
+};
+*/
+
+const QStringList kAttrList = { "",
+                                "Unique Identifier",
+                                "Name",
+                                "Object Type",
+                                "Cryptographic Algorithm",
+                                "Cryptographic Length",
+                                "Operation Policy Name",
+                                "Cryptographic Usage Mask",
+                                "State",
+                                "Initial Date",
 };
 
 static int _getMech( int nAlg, QString strHash )
@@ -495,7 +510,24 @@ void ReqEncoderDlg::clickGetAttributeList()
 
 void ReqEncoderDlg::clickAddAttribute()
 {
+    int ret = 0;
+    JS_BIN_reset( &data_ );
 
+    QString strUUID = mUUIDText->text();
+    QString strAttrName = mAttributeCombo->currentText();
+    QString strAttrValue = mInputText->toPlainText();
+
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+    ret = JS_KMS_encodeAddAttributeReq( &sAuth, strUUID.toStdString().c_str(), strAttrName.toStdString().c_str(), strAttrValue.toStdString().c_str(), &data_ );
+
+    JS_KMS_resetAuthentication( &sAuth );
+
+    if( ret == 0 )
+    {
+        QDialog::accept();
+    }
 }
 
 void ReqEncoderDlg::clickGetAttributes()
@@ -521,12 +553,45 @@ void ReqEncoderDlg::clickGetAttributes()
 
 void ReqEncoderDlg::clickModifyAttribute()
 {
+    int ret = 0;
+    JS_BIN_reset( &data_ );
 
+    QString strUUID = mUUIDText->text();
+    QString strAttrName = mAttributeCombo->currentText();
+    QString strAttrValue = mInputText->toPlainText();
+
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+    ret = JS_KMS_encodeModifyAttributeReq( &sAuth, strUUID.toStdString().c_str(), strAttrName.toStdString().c_str(), strAttrValue.toStdString().c_str(), &data_ );
+
+    JS_KMS_resetAuthentication( &sAuth );
+
+    if( ret == 0 )
+    {
+        QDialog::accept();
+    }
 }
 
 void ReqEncoderDlg::clickDeleteAttribute()
 {
+    int ret = 0;
+    JS_BIN_reset( &data_ );
 
+    QString strUUID = mUUIDText->text();
+    QString strAttrName = mAttributeCombo->currentText();
+
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+    ret = JS_KMS_encodeDeleteAttributeReq( &sAuth, strUUID.toStdString().c_str(), strAttrName.toStdString().c_str(), 0, &data_ );
+
+    JS_KMS_resetAuthentication( &sAuth );
+
+    if( ret == 0 )
+    {
+        QDialog::accept();
+    }
 }
 
 void ReqEncoderDlg::clickRevoke()
