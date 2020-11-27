@@ -7,7 +7,7 @@
 #include <QFileDialog>
 
 const QStringList kObjetType = { "SecretKey", "PrivateKey", "PublicKey", "Certificate" };
-const QStringList kAlgList = { "RSA", "ECDSA" };
+const QStringList kAlgList = { "RSA", "ECDSA", "AES" };
 const QStringList kRSAOptionList = { "1024", "2048", "3072", "4096" };
 const QStringList kECDSAOptionList = { "P-256" };
 const QStringList kHashList = { "None", "SHA1", "SHA256", "SHA384", "SHA512" };
@@ -606,7 +606,36 @@ void ReqEncoderDlg::clickMAC()
 
 void ReqEncoderDlg::clickLocate()
 {
+    int ret = 0;
+    int nAlg = -1;
 
+    JS_BIN_reset( &data_ );
+
+    Authentication sAuth = {0};
+    JS_KMS_makeAuthentication( mUserIDText->text().toStdString().c_str(), mPasswdText->text().toStdString().c_str(), &sAuth );
+
+
+    if( mAlgCombo->currentIndex() == 0 )
+    {
+        nAlg = JS_PKI_KEY_TYPE_RSA;
+    }
+    else if( mAlgCombo->currentIndex() == 1 )
+    {
+        nAlg = JS_PKI_KEY_TYPE_ECC;
+    }
+    else if( mAlgCombo->currentIndex() == 2 )
+    {
+        nAlg = JS_PKI_KEY_TYPE_AES;
+    }
+
+    ret = JS_KMS_encodeLocateReq( &sAuth, nAlg, &data_ );
+
+    JS_KMS_resetAuthentication( &sAuth );
+
+    if( ret == 0 )
+    {
+        QDialog::accept();
+    }
 }
 
 void ReqEncoderDlg::clickDeriveKey()
