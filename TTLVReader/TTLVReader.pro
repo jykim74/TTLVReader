@@ -107,7 +107,7 @@ win32 {
         LIBS += -L"../../PKILib/lib/win32/cmpossl/lib" -lcrypto -lssl
     }
 
-    LIBS += -L"../../PKILib/lib/win32/ltdl/lib" -lltdl
+    LIBS += -L"C:\msys64\mingw32\lib" -lltdl
  #   LIBS += -L"C:\msys64\mingw32\i686-w64-mingw32\lib" -lws2_32
 }
 
