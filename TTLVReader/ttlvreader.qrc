@@ -26,5 +26,9 @@
         <file>images/vline.png</file>
         <file>ttlvreader.qss</file>
         <file>images/encoder.png</file>
+        <file>Info.plist</file>
+        <file>ttlv.rc</file>
+        <file>ttlvreader.icns</file>
+        <file>ttlvreader.ico</file>
     </qresource>
 </RCC>

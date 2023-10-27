@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleExecutable</key>
+        <string>BerEditor</string>
+	<key>CFBundleGetInfoString</key>
+	<string>BerEditor Application</string>
+	<key>CFBundleIconFile</key>
+	<string>bereditor</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.jsinc.bereditor</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleName</key>
+	<string>BerEditor</string>
+	<key>CFBundleShortVersionString</key>
+        <string>1.5.4</string>
+	<key>CFBundleVersion</key>
+        <string>1.5.4</string>
+	<key>CFBundleSignature</key>
+        <string>hbwr</string>
+        <key>SUFeedURL</key>
+        <string>https://jykim74.github.io/appcast/bereditor_appcast_mac.xml</string>
+        <key>SUPublicEDKey</key>
+        <string>TLJn+zNF8t6SpCGDfDjjKEJGnv40yVGKJrK1XBhyVKo=</string>
+</dict>
+</plist>
