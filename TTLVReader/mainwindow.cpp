@@ -63,7 +63,10 @@ void MainWindow::initialize()
     vsplitter_ = new QSplitter(Qt::Vertical);
     left_tree_ = new ReaderTreeView(this);
     left_model_ = new ReaderTreeModel(this);
-    right_text_ = new QTextEdit();
+    info_text_ = new QTextEdit();
+    info_text_->setReadOnly(true);
+    log_text_ = new QTextEdit();
+    log_text_->setReadOnly(true);
     right_table_ = new QTableWidget;
 
     left_tree_->setModel(left_model_);
@@ -71,7 +74,12 @@ void MainWindow::initialize()
     hsplitter_->addWidget(left_tree_);
     hsplitter_->addWidget(vsplitter_);
     vsplitter_->addWidget(right_table_);
-    vsplitter_->addWidget(right_text_);
+
+    text_tab_ = new QTabWidget;
+    vsplitter_->addWidget(text_tab_);
+    text_tab_->setTabPosition(QTabWidget::South);
+    text_tab_->addTab( info_text_, tr("Information" ));
+    text_tab_->addTab( log_text_, tr("Log"));
 
     QList <int> vsizes;
     vsizes << 1200 << 500;
@@ -96,6 +104,43 @@ void MainWindow::showWindow()
     show();
     raise();
     activateWindow();
+}
+
+void MainWindow::log( const QString strLog, QColor cr )
+{
+    if( text_tab_->count() <= 1 ) return;
+
+    QTextCursor cursor = log_text_->textCursor();
+    //    cursor.movePosition( QTextCursor::End );
+
+    QTextCharFormat format;
+    format.setForeground( cr );
+    cursor.mergeCharFormat(format);
+
+    cursor.insertText( strLog );
+    cursor.insertText( "\n" );
+
+    log_text_->setTextCursor( cursor );
+    log_text_->repaint();
+}
+
+void MainWindow::elog( const QString strLog )
+{
+    log( strLog, QColor(0xFF,0x00,0x00));
+}
+
+void MainWindow::info( const QString strLog, QColor cr )
+{
+    QTextCursor cursor = info_text_->textCursor();
+
+    QTextCharFormat format;
+    format.setForeground( cr );
+    cursor.mergeCharFormat(format);
+
+    cursor.insertText( strLog );
+
+    info_text_->setTextCursor( cursor );
+    info_text_->repaint();
 }
 
 void MainWindow::createActions()

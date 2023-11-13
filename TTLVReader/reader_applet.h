@@ -15,6 +15,10 @@ public:
 
     void start();
 
+    void log( const QString strLog, QColor cr = QColor(00,00,00) );
+    void elog( const QString strLog );
+    void info( const QString strLog, QColor cr = QColor(00,00,00) );
+
     MainWindow* mainWindow() { return main_win_; };
     SettingsMgr* settingsMgr() { return settings_mgr_; };
 

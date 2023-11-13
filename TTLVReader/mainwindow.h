@@ -27,9 +27,13 @@ public:
     void initialize();
     void showWindow();
 
+    void log( const QString strLog, QColor cr = QColor(0x00, 0x00, 0x00) );
+    void elog( const QString strLog );
+    void info( const QString strLog, QColor cr = QColor(0x00, 0x00, 0x00) );
+
     BIN& getTTLV() { return ttlv_; };
     QTableWidget* rightTable() { return right_table_; };
-    QTextEdit* rightText() { return right_text_; };
+
     void setTTLV( const BIN *pTTLV );
 
     void parseTree();
@@ -67,7 +71,9 @@ private:
     ReaderTreeView  *left_tree_;
     ReaderTreeModel *left_model_;
     QTableWidget    *right_table_;
-    QTextEdit       *right_text_;
+    QTabWidget      *text_tab_;
+    QTextEdit       *info_text_;
+    QTextEdit       *log_text_;
 
     BIN             ttlv_;
 };

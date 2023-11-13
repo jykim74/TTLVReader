@@ -156,10 +156,8 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
         rightTable->item( line, 17 )->setBackgroundColor(QColor(210,240,210));
     }
 
-    QTextEdit *rightText = readerApplet->mainWindow()->rightText();
     QString strInfo = getInfoView( pItem );
-
-    rightText->setText( strInfo );
+    readerApplet->info( strInfo );
 }
 
 void ReaderTreeView::showRightPart( ReaderTreeItem *pItem )
@@ -247,10 +245,8 @@ void ReaderTreeView::showRightPart( ReaderTreeItem *pItem )
         rightTable->item( line, 17 )->setBackgroundColor(QColor(210,240,210));
     }
 
-    QTextEdit *rightText = readerApplet->mainWindow()->rightText();
     QString strInfo = getInfoView( pItem );
-
-    rightText->setText( strInfo );
+    readerApplet->info( strInfo );
     JS_BIN_reset( &binPart );
 }
 

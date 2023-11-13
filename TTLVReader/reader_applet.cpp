@@ -30,6 +30,21 @@ void ReaderApplet::start()
     main_win_->show();
 }
 
+void ReaderApplet::log( const QString strLog, QColor cr )
+{
+    main_win_->log( strLog, cr );
+}
+
+void ReaderApplet::elog( const QString strLog )
+{
+    main_win_->elog( strLog );
+}
+
+void ReaderApplet::info( const QString strLog, QColor cr )
+{
+    main_win_->info( strLog, cr );
+}
+
 QString ReaderApplet::getBrand()
 {
     return QString::fromUtf8( "TTLVReader" );
