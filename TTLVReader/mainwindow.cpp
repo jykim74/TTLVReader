@@ -143,6 +143,11 @@ void MainWindow::info( const QString strLog, QColor cr )
     info_text_->repaint();
 }
 
+void MainWindow::infoClear()
+{
+    info_text_->clear();
+}
+
 void MainWindow::createActions()
 {
     QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
@@ -190,6 +195,55 @@ void MainWindow::createActions()
 
     QAction *editAct = toolMenu->addAction( tr("&Edit"), this, &MainWindow::editItem );
     editAct->setStatusTip(tr("Edit TTLV"));
+
+    QMenu *editMenu = menuBar()->addMenu(tr("&Edit"));
+    QToolBar *editToolBar = addToolBar(tr("Edit"));
+
+    const QIcon copyIcon = QIcon::fromTheme("edit-copy", QIcon(":/images/copy.png"));
+    QAction *copyAct = new QAction(copyIcon, tr("&Copy"), this);
+    copyAct->setShortcuts(QKeySequence::Copy);
+    copyAct->setStatusTip(tr("Copy the current selection's contents to the clipboard"));
+    connect( copyAct, &QAction::triggered, left_tree_, &ReaderTreeView::copy );
+    editMenu->addAction(copyAct);
+    //    editToolBar->addAction(copyAct);
+
+    QAction *copyAsHexAct = editMenu->addAction(tr("Copy As &Hex"), left_tree_, &ReaderTreeView::CopyAsHex);
+    copyAsHexAct->setStatusTip(tr("Copy ber data as hex"));
+
+    QAction *copyAsBase64Act = editMenu->addAction(tr("Copy As &Base64"), left_tree_, &ReaderTreeView::CopyAsBase64);
+    copyAsBase64Act->setStatusTip(tr("Copy ber data as base64"));
+
+    const QIcon expandAllIcon = QIcon::fromTheme("expand-all", QIcon(":/images/expand_all.png"));
+    QAction *expandAllAct = new QAction(expandAllIcon, tr("&Expand All"), this );
+    expandAllAct->setShortcut( QKeySequence(Qt::Key_F5) );
+    expandAllAct->setStatusTip(tr("Show all nodes"));
+    connect( expandAllAct, &QAction::triggered, left_tree_, &ReaderTreeView::treeExpandAll );
+    editMenu->addAction(expandAllAct);
+    editToolBar->addAction(expandAllAct);
+
+    const QIcon expandNodeIcon = QIcon::fromTheme("expand-node", QIcon(":/images/expand_node.png"));
+    QAction *expandNodeAct = new QAction(expandNodeIcon, tr("&Expand Node"), this );
+    expandNodeAct->setStatusTip(tr("Show node"));
+    expandNodeAct->setShortcut( QKeySequence(Qt::Key_F6));
+    connect( expandNodeAct, &QAction::triggered, left_tree_, &ReaderTreeView::treeExpandNode );
+    editMenu->addAction(expandNodeAct);
+    editToolBar->addAction(expandNodeAct);
+
+    const QIcon collapseAllIcon = QIcon::fromTheme("collapse-all", QIcon(":/images/collapse_all.png"));
+    QAction *collapseAllAct = new QAction(collapseAllIcon, tr("&Collapse All"), this );
+    collapseAllAct->setStatusTip(tr("Collapse all nodes"));
+    collapseAllAct->setShortcut( QKeySequence(Qt::Key_F7));
+    connect( collapseAllAct, &QAction::triggered, left_tree_, &ReaderTreeView::treeCollapseAll );
+    editMenu->addAction(collapseAllAct);
+    editToolBar->addAction(collapseAllAct);
+
+    const QIcon collapseNodeIcon = QIcon::fromTheme("collapse-node", QIcon(":/images/collapse_node.png"));
+    QAction *collapseNodeAct = new QAction(collapseNodeIcon, tr("&Collapse Node"), this );
+    collapseNodeAct->setStatusTip(tr("Show node"));
+    collapseNodeAct->setShortcut( QKeySequence(Qt::Key_F8));
+    connect( collapseNodeAct, &QAction::triggered, left_tree_, &ReaderTreeView::treeCollapseNode );
+    editMenu->addAction(collapseNodeAct);
+    editToolBar->addAction(collapseNodeAct);
 
     QMenu *helpMenu = menuBar()->addMenu(tr("&Help"));
     QToolBar *helpToolBar = addToolBar( tr("Help" ));

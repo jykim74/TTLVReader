@@ -22,6 +22,8 @@ private slots:
 
 private:
     void initialize();
+    void initFontFamily();
+
     Q_DISABLE_COPY(SettingsDlg);
 };
 

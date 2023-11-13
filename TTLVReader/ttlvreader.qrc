@@ -30,5 +30,9 @@
         <file>ttlv.rc</file>
         <file>ttlvreader.icns</file>
         <file>ttlvreader.ico</file>
+        <file>images/collapse_all.png</file>
+        <file>images/collapse_node.png</file>
+        <file>images/expand_all.png</file>
+        <file>images/expand_node.png</file>
     </qresource>
 </RCC>

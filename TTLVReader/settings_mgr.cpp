@@ -6,6 +6,7 @@ const char *kBehaviorGroup = "Behavior";
 const char *kShowFullText = "showFullText";
 const char *kKMIPHost = "KMIPHost";
 const char *kKMIPPort = "KMIPPort";
+const char *kFontFamily = "fontFamily";
 }
 
 SettingsMgr::SettingsMgr( QObject *parent ) : QObject(parent)
@@ -77,4 +78,29 @@ void SettingsMgr::setKMIPPort( const QString strPort )
     settings.beginGroup( kBehaviorGroup );
     settings.setValue( kKMIPPort, strPort );
     settings.endGroup();
+}
+
+void SettingsMgr::setFontFamily( const QString& strFamily )
+{
+    QSettings sets;
+    sets.beginGroup( kBehaviorGroup );
+    sets.setValue( kFontFamily, strFamily );
+    sets.endGroup();
+}
+
+QString SettingsMgr::getFontFamily()
+{
+    QSettings sets;
+
+#ifdef Q_OS_MAC
+    QString strDefault = "Monaco";
+#else
+    QString strDefault = "Consolas";
+#endif
+
+    sets.beginGroup( kBehaviorGroup );
+    QString strFamily = sets.value( kFontFamily, strDefault ).toString();
+    sets.endGroup();
+
+    return strFamily;
 }

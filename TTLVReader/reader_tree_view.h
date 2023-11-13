@@ -15,11 +15,24 @@ public:
     void showRight();
     void showRightFull( ReaderTreeItem *pItem );
     void showRightPart( ReaderTreeItem *pItem );
-    QString getInfoView( ReaderTreeItem *pItem );
+    void getInfoView( ReaderTreeItem *pItem );
+
+public slots:
+    void CopyAsHex();
+    void CopyAsBase64();
+    void copy();
+
+    void treeExpandAll();
+    void treeExpandNode();
+    void treeCollapseAll();
+    void treeCollapseNode();
 
 private slots:
     void onItemClicked( const QModelIndex& index );
     void leftContextMenu( QPoint point );
+
+private:
+    ReaderTreeItem* currentItem();
 };
 
 #endif // READERTREEVIEW_H

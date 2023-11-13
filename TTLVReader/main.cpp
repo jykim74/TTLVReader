@@ -6,6 +6,7 @@
 
 #include "reader_applet.h"
 #include "i18n_helper.h"
+#include "settings_mgr.h"
 
 int main(int argc, char *argv[])
 {
@@ -31,6 +32,12 @@ int main(int argc, char *argv[])
     readerApplet = &mApplet;
     readerApplet->setCmd( argv[0] );
     readerApplet->start();
+
+    QFont font;
+    QString strFont = readerApplet->settingsMgr()->getFontFamily();
+
+    font.setFamily( strFont );
+    app.setFont(font);
 
     return app.exec();
 }

@@ -1,3 +1,7 @@
+#include <QtGlobal>
+#include <QtWidgets>
+#include <QFontDatabase>
+
 #include "settings_dlg.h"
 #include "i18n_helper.h"
 #include "settings_mgr.h"
@@ -12,6 +16,7 @@ SettingsDlg::SettingsDlg(QWidget *parent) :
 
     mLangCombo->addItems(I18NHelper::getInstance()->getLanguages());
 
+    initFontFamily();
     initialize();
 }
 
@@ -42,6 +47,7 @@ void SettingsDlg::initialize()
     QString strKMIPPort = mgr->KMIPPort();
     mKMIPPortText->setText( strKMIPPort );
 
+    mFontFamilyCombo->setCurrentText( mgr->getFontFamily() );
     mLangCombo->setCurrentIndex(I18NHelper::getInstance()->preferredLanguage());
 }
 
@@ -60,6 +66,8 @@ void SettingsDlg::updateSettings()
 
     mgr->setKMIPHost( mKMIPHostText->text() );
     mgr->setKMIPPort( mKMIPPortText->text() );
+    mgr->setFontFamily( mFontFamilyCombo->currentText() );
+
 
     bool language_changed = false;
 
@@ -77,4 +85,11 @@ void SettingsDlg::accept()
 {
     updateSettings();
     QDialog::accept();
+}
+
+void SettingsDlg::initFontFamily()
+{
+    QFontDatabase fontDB;
+    QStringList fontList = fontDB.families();
+    mFontFamilyCombo->addItems( fontList );
 }

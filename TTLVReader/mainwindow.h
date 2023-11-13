@@ -30,6 +30,7 @@ public:
     void log( const QString strLog, QColor cr = QColor(0x00, 0x00, 0x00) );
     void elog( const QString strLog );
     void info( const QString strLog, QColor cr = QColor(0x00, 0x00, 0x00) );
+    void infoClear();
 
     BIN& getTTLV() { return ttlv_; };
     QTableWidget* rightTable() { return right_table_; };

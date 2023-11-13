@@ -1,4 +1,6 @@
 #include <QMenu>
+#include <QGuiApplication>
+#include <QClipboard>
 
 #include "reader_tree_view.h"
 #include "reader_tree_item.h"
@@ -12,6 +14,7 @@
 #include "mainwindow.h"
 #include "reader_applet.h"
 #include "settings_mgr.h"
+#include "common.h"
 
 ReaderTreeView::ReaderTreeView( QWidget *parent )
     : QTreeView(parent)
@@ -21,6 +24,17 @@ ReaderTreeView::ReaderTreeView( QWidget *parent )
 
     connect( this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(leftContextMenu(QPoint)));
 }
+
+ReaderTreeItem* ReaderTreeView::currentItem()
+{
+    QModelIndex index = currentIndex();
+
+    ReaderTreeModel *tree_model = (ReaderTreeModel *)model();
+    ReaderTreeItem *item = (ReaderTreeItem *)tree_model->itemFromIndex(index);
+
+    return item;
+}
+
 
 void ReaderTreeView::showRight()
 {
@@ -79,7 +93,6 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
     QColor green(Qt::green);
     QColor yellow(Qt::yellow);
     QColor cyan(Qt::cyan);
-    QColor magenta(Qt::magenta);
     QColor lightGray(Qt::lightGray);
 
 
@@ -131,7 +144,7 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
         }
         else if( i >= pItem->getOffset() + 8 && i < pItem->getOffset() + 8 + len )
         {
-            rightTable->item( line, pos )->setBackgroundColor(magenta);
+            rightTable->item( line, pos )->setBackgroundColor(kValueColor);
         }
         else if( i >= (pItem->getOffset() + 8 + len) && i < (pItem->getOffset() + 8 + len + pad ))
         {
@@ -156,8 +169,7 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
         rightTable->item( line, 17 )->setBackgroundColor(QColor(210,240,210));
     }
 
-    QString strInfo = getInfoView( pItem );
-    readerApplet->info( strInfo );
+    getInfoView( pItem );
 }
 
 void ReaderTreeView::showRightPart( ReaderTreeItem *pItem )
@@ -169,7 +181,6 @@ void ReaderTreeView::showRightPart( ReaderTreeItem *pItem )
     QColor green(Qt::green);
     QColor yellow(Qt::yellow);
     QColor cyan(Qt::cyan);
-    QColor magenta(Qt::magenta);
     QColor lightGray(Qt::lightGray);
     BIN     binPart = {0,0};
 
@@ -220,7 +231,7 @@ void ReaderTreeView::showRightPart( ReaderTreeItem *pItem )
         }
         else if( i >= 8 && i < 8 + length )
         {
-            rightTable->item( line, pos )->setBackgroundColor(magenta);
+            rightTable->item( line, pos )->setBackgroundColor(kValueColor);
         }
         else if( i >= (8 + length ) && i < ( 8 + length + pad ))
         {
@@ -245,30 +256,104 @@ void ReaderTreeView::showRightPart( ReaderTreeItem *pItem )
         rightTable->item( line, 17 )->setBackgroundColor(QColor(210,240,210));
     }
 
-    QString strInfo = getInfoView( pItem );
-    readerApplet->info( strInfo );
+    getInfoView( pItem );
+
     JS_BIN_reset( &binPart );
 }
 
-QString ReaderTreeView::getInfoView(ReaderTreeItem *pItem)
+void ReaderTreeView::getInfoView(ReaderTreeItem *pItem)
 {
-    QString strView;
-    QString strPart;
+    readerApplet->mainWindow()->infoClear();
+    readerApplet->info( "========================================================================\n" );
+    readerApplet->info( "== TTLV Information\n" );
+    readerApplet->info( "========================================================================\n" );
 
-    strPart = QString( "Tag: %1(%2)\n" ).arg( pItem->getTagName() ).arg( pItem->getTagHex() );
-    strView += strPart;
+    readerApplet->info( QString( "Tag    : %1(%2)\n" ).arg( pItem->getTagName() ).arg( pItem->getTagHex() ));
+    readerApplet->info( QString( "Type   : %1(%2)\n").arg( pItem->getTypeName() ).arg( pItem->getTypeHex() ));
+    readerApplet->info( QString( "Length : %1(%2)\n" ).arg( pItem->getLengthInt() ).arg( pItem->getLengthHex() ));
+    readerApplet->info( QString( "Offset : %1(%2)\n").arg( pItem->getOffset() ).arg( pItem->getOffset(), 0, 16) );
+    readerApplet->info( QString( "Value  : %1").arg( pItem->getPrintValue() ) );
+}
 
-    strPart = QString( "Type: %1(%2)\n").arg( pItem->getTypeName() ).arg( pItem->getTypeHex() );
-    strView += strPart;
+void ReaderTreeView::CopyAsHex()
+{
+    char *pHex = NULL;
+    ReaderTreeItem* item = currentItem();
+    if( item == NULL )
+    {
+        readerApplet->warningBox( tr( "There is no selected item"), this );
+        return;
+    }
 
-    strPart = QString( "Length: %1(%2)\n" ).arg( pItem->getLengthInt() ).arg( pItem->getLengthHex() );
-    strView += strPart;
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    BIN binData = {0,0};
+    ReaderTreeModel *tree_model = (ReaderTreeModel *)model();
+/*
+    BIN& binBer = tree_model->getBer();
+    JS_BIN_set( &binData, binBer.pVal + item->GetOffset(), item->GetHeaderSize() + item->GetLength() );
+    JS_BIN_encodeHex( &binData, &pHex );
+    clipboard->setText(pHex);
+    if( pHex ) JS_free(pHex);
+    JS_BIN_reset(&binData);
+*/
+}
 
-    strPart = QString( "Offset: %1(%2)\n").arg( pItem->getOffset() ).arg( pItem->getOffset(), 0, 16);
-    strView += strPart;
+void ReaderTreeView::CopyAsBase64()
+{
+    char *pBase64 = NULL;
+    ReaderTreeItem* item = currentItem();
+    if( item == NULL )
+    {
+        readerApplet->warningBox( tr( "There is no selected item"), this );
+        return;
+    }
 
-    strPart = QString( "\nValue\n %1").arg( pItem->getPrintValue() );
-    strView += strPart;
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    BIN binData = {0,0};
+    ReaderTreeModel *tree_model = (ReaderTreeModel *)model();
+/*
+    BIN& binBer = tree_model->getBer();
+    JS_BIN_set( &binData, binBer.pVal + item->GetOffset(), item->GetHeaderSize() + item->GetLength() );
+    JS_BIN_encodeBase64( &binData, &pBase64 );
+    clipboard->setText(pBase64);
+    if( pBase64 ) JS_free(pBase64);
+    JS_BIN_reset(&binData);
+*/
+}
 
-    return strView;
+void ReaderTreeView::copy()
+{
+    ReaderTreeItem* item = currentItem();
+    if( item == NULL )
+    {
+        readerApplet->warningBox( tr( "There is no selected item"), this );
+        return;
+    }
+
+    QClipboard *clipboard = QGuiApplication::clipboard();
+
+//    QString strLog = readerApplet->mainWindow()->getLog();
+//    clipboard->setText(strLog);
+}
+
+void ReaderTreeView::treeExpandAll()
+{
+    expandAll();
+}
+
+void ReaderTreeView::treeExpandNode()
+{
+    QModelIndex index = currentIndex();
+    expand(index);
+}
+
+void ReaderTreeView::treeCollapseAll()
+{
+    collapseAll();
+}
+
+void ReaderTreeView::treeCollapseNode()
+{
+    QModelIndex index = currentIndex();
+    collapse(index);
 }

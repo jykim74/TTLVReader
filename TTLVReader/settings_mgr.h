@@ -17,6 +17,9 @@ public:
     QString KMIPPort();
     void setKMIPPort( const QString strPort );
 
+    void setFontFamily( const QString& strFamily );
+    QString getFontFamily();
+
 private:
     Q_DISABLE_COPY(SettingsMgr)
 };
