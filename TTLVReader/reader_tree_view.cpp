@@ -9,6 +9,7 @@
 #include <QStandardItemModel>
 #include <QTreeView>
 #include <QTableWidget>
+#include <QFileDialog>
 
 #include "js_bin.h"
 #include "mainwindow.h"
@@ -23,6 +24,11 @@ ReaderTreeView::ReaderTreeView( QWidget *parent )
     setContextMenuPolicy(Qt::CustomContextMenu);
 
     connect( this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(leftContextMenu(QPoint)));
+
+    QFile qss(":/ttlvreader.qss");
+    qss.open( QFile::ReadOnly );
+    setStyleSheet(qss.readAll());
+    qss.close();
 }
 
 ReaderTreeItem* ReaderTreeView::currentItem()
