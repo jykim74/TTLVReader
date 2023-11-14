@@ -454,3 +454,8 @@ void MainWindow::expandRoot()
     QModelIndex ri = left_model_->index(0,0);
     left_tree_->expand(ri);
 }
+
+QString MainWindow::getInfo()
+{
+    return info_text_->toPlainText();
+}

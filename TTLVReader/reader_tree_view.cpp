@@ -292,16 +292,11 @@ void ReaderTreeView::CopyAsHex()
     }
 
     QClipboard *clipboard = QGuiApplication::clipboard();
-    BIN binData = {0,0};
-    ReaderTreeModel *tree_model = (ReaderTreeModel *)model();
-/*
-    BIN& binBer = tree_model->getBer();
-    JS_BIN_set( &binData, binBer.pVal + item->GetOffset(), item->GetHeaderSize() + item->GetLength() );
-    JS_BIN_encodeHex( &binData, &pHex );
+
+    BIN *pVal = item->getValue();
+    JS_BIN_encodeHex( pVal, &pHex );
     clipboard->setText(pHex);
     if( pHex ) JS_free(pHex);
-    JS_BIN_reset(&binData);
-*/
 }
 
 void ReaderTreeView::CopyAsBase64()
@@ -315,16 +310,10 @@ void ReaderTreeView::CopyAsBase64()
     }
 
     QClipboard *clipboard = QGuiApplication::clipboard();
-    BIN binData = {0,0};
-    ReaderTreeModel *tree_model = (ReaderTreeModel *)model();
-/*
-    BIN& binBer = tree_model->getBer();
-    JS_BIN_set( &binData, binBer.pVal + item->GetOffset(), item->GetHeaderSize() + item->GetLength() );
-    JS_BIN_encodeBase64( &binData, &pBase64 );
+    BIN *pVal = item->getValue();
+    JS_BIN_encodeBase64( pVal, &pBase64 );
     clipboard->setText(pBase64);
     if( pBase64 ) JS_free(pBase64);
-    JS_BIN_reset(&binData);
-*/
 }
 
 void ReaderTreeView::copy()
@@ -338,8 +327,8 @@ void ReaderTreeView::copy()
 
     QClipboard *clipboard = QGuiApplication::clipboard();
 
-//    QString strLog = readerApplet->mainWindow()->getLog();
-//    clipboard->setText(strLog);
+    QString strLog = readerApplet->mainWindow()->getInfo();
+    clipboard->setText(strLog);
 }
 
 void ReaderTreeView::treeExpandAll()

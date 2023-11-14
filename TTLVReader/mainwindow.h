@@ -41,6 +41,7 @@ public:
     void showRight();
     ReaderTreeItem* currentItem();
     void expandRoot();
+    QString getInfo();
 
 private slots:
     void newFile();
