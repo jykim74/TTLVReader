@@ -123,12 +123,14 @@ void ReaderTreeView::showRightFull( ReaderTreeItem *pItem )
         {
             rightTable->insertRow(line);
             QString address;
-            address.sprintf( "0x%08X", i );
+            address = QString( "0x%1" ).arg( i, 8, 16, QLatin1Char( '0' ));
+//            address.sprintf( "0x%08X", i );
             rightTable->setItem( line, 0, new QTableWidgetItem(address));
             rightTable->item( line, 0 )->setBackgroundColor( QColor(220,220,250) );
         }
 
-        hex.sprintf( "%02X", TTLV.pVal[i] );
+//        hex.sprintf( "%02X", TTLV.pVal[i] );
+        hex = QString( "%1" ).arg( TTLV.pVal[i], 2, 16, QLatin1Char('0') ).toUpper();
         pos = (i%16) + 1;
         rightTable->setItem( line, pos, new QTableWidgetItem(hex));
 
@@ -214,12 +216,14 @@ void ReaderTreeView::showRightPart( ReaderTreeItem *pItem )
         {
             rightTable->insertRow(line);
             QString address;
-            address.sprintf( "0x%08X", i );
+//            address.sprintf( "0x%08X", i );
+            address = QString( "0x%1" ).arg( i, 8, 16, QLatin1Char( '0' ));
             rightTable->setItem( line, 0, new QTableWidgetItem(address));
             rightTable->item( line, 0 )->setBackgroundColor( QColor(220,220,250) );
         }
 
-        hex.sprintf( "%02X", binPart.pVal[i] );
+//        hex.sprintf( "%02X", binPart.pVal[i] );
+        hex = QString( "%1" ).arg( TTLV.pVal[i], 2, 16, QLatin1Char('0') ).toUpper();
         pos = (i%16) + 1;
         rightTable->setItem( line, pos, new QTableWidgetItem(hex));
 
