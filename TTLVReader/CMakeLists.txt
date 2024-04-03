@@ -142,17 +142,18 @@ elseif(APPLE)
         MACOSX_BUNDLE_INFO_PLIST ${CMAKE_CURRENT_SOURCE_DIR}/Info.plist )
 
     include_directories( ../../PKILib
+        ../../lib/mac/openssl3/include
         /usr/local/include )
 
     if( CMAKE_BUILD_TYPE STREQUAL "Debug" )
         target_link_directories( ${PROJECT_NAME} PRIVATE
         ../../build-PKILib-Desktop_Qt_5_15_2_clang_64bit-Debug
-        ../../PKILib/lib/mac/debug/openssl3/lib
+        ../../lib/mac/debug/openssl3/lib
         /usr/local/lib )
     elseif( CMAKE_BUILD_TYPE STREQUAL "Release" )
         target_link_directories( ${PROJECT_NAME} PRIVATE
         ../../build-PKILib-Desktop_Qt_5_15_2_clang_64bit-Release
-        ../../PKILib/lib/mac/openssl3/lib
+        ../../lib/mac/openssl3/lib
         /usr/local/lib )
     endif()
 
