@@ -197,6 +197,97 @@ mailto : jykim74@gmail.com</source>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy the current selection&apos;s contents to the clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy As &amp;Hex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy ber data as hex</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy As &amp;Base64</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy ber data as base64</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Expand All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show all nodes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Expand Node</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show node</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Collapse All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Collapse all nodes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Collapse Node</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <source>Cert Files (*.crt *.der *.pem);;All Files(*.*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Key Files (*.key *.der *.pem);;All Files(*.*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>TXT Files (*.txt *.log);;All Files(*.*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>BER Files (*.ber *.der *.pem);;All Files(*.*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Binary Files (*.bin *.ber *.der);;All Files(*.*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ReaderApplet</name>
@@ -229,6 +320,10 @@ mailto : jykim74@gmail.com</source>
     </message>
     <message>
         <source>SaveItemValue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is no selected item</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -272,14 +367,6 @@ mailto : jykim74@gmail.com</source>
     </message>
     <message>
         <source>CreateKeyPair</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SetAttribute</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GetAttribute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -347,10 +434,6 @@ mailto : jykim74@gmail.com</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SplitKey</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Authentication</source>
         <translation type="unfinished"></translation>
     </message>
@@ -364,6 +447,38 @@ mailto : jykim74@gmail.com</source>
     </message>
     <message>
         <source>NamedCurve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RNGRetrieve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RNGSeed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>JoinSplitKey</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AddAttribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GetAttributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Attribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CreateSplitKey</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -425,10 +540,6 @@ mailto : jykim74@gmail.com</source>
         <source>Find PrivateKey</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>PKI Test file</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SettingsDlg</name>
@@ -466,6 +577,14 @@ mailto : jykim74@gmail.com</source>
     </message>
     <message>
         <source>KMIP Host</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Family</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Need to restart</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
